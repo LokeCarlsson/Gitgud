@@ -1,6 +1,6 @@
 <template>
     <div class="col-sm-6 col-sm-offset-3">
-      <h2>Get a Free Chuck Norris Quote!</h2>
+      <h2>Chuck Norris Quotes!</h2>
       <button v-on:click="getQuote()" class="btn btn-primary primary medium circular">
         <i class="">cached</i>
       </button>
@@ -17,12 +17,14 @@
         quote: ''
       }
     },
+    mounted () {
+      this.getQuote()
+    },
     methods: {
       getQuote () {
         let vm = this
-        this.$http.get('jokes/random')
+        this.$http.get('jokes/random?escape=javascript')
         .then(function (data) {
-          console.log(data)
           vm.quote = data.data.value.joke
         })
       }
