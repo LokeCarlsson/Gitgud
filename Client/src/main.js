@@ -14,8 +14,11 @@ import axios from 'axios'
 // Install Quasar Framework
 Vue.use(Quasar)
 
+// Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token')
+
 // Axios setup:
 axios.defaults.baseURL = 'http://api.icndb.com/'
+// axios.defaults.baseURL = 'http://localhost:3001/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 Vue.prototype.$http = axios
 

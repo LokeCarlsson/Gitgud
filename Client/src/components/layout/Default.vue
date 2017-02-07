@@ -14,9 +14,10 @@
 
     <q-tabs slot="navigation" class="justified">
       <q-tab icon="view_quilt" route="/" exact replace>Home</q-tab>
-      <q-tab icon="view_quilt" route="/chuck" exact replace>Chuck</q-tab>
-      <q-tab icon="view_day" route="/404" replace>404</q-tab>
-      <q-tab icon="view_day" route="/cash" replace>402</q-tab>
+      <q-tab icon="library_books" route="/chuck" exact replace>Chuck</q-tab>
+      <q-tab icon="perm_identity" route="/login" replace>Login</q-tab>
+      <q-tab icon="lock_outline" route="/signup" replace>Sign up</q-tab>
+      <q-tab icon="library_add" route="/secretquote" replace>Secret Quote</q-tab>
     </q-tabs>
 
     <q-drawer swipe-only ref="leftDrawer">

@@ -8,6 +8,9 @@ import HomeView from './components/layout/Default.vue'
 import Chuck from './components/test/Chuck.vue'
 import Start from './components/info/Start.vue'
 import AboutView from './components/info/About.vue'
+import SecretQuote from './components/auth/SecretQuote.vue'
+import Signup from './components/auth/Signup.vue'
+import Login from './components/auth/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +38,24 @@ export default new VueRouter({
           component: AboutView,
           name: 'About',
           description: 'About, info and stuff'
+        },
+        {
+          path: '/secretquote',
+          component: SecretQuote,
+          name: 'SecretQuote',
+          description: 'Secret Quote'
+        },
+        {
+          path: '/login',
+          component: Login,
+          name: 'Login',
+          description: 'Login'
+        },
+        {
+          path: '/signup',
+          component: Signup,
+          name: 'Signup',
+          description: 'Signup'
         }
       ]
     },
