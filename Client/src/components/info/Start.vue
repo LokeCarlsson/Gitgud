@@ -1,10 +1,10 @@
 <template>
-  <div id='about'>
+  <div id='start'>
     <h4>
       Hello!
     </h4>
     <p>
-      Here is about information going to be written! Soon...
+      Welcome to Gitgud!
     </p>
   </div>
 </template>

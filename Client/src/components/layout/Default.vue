@@ -5,7 +5,7 @@
         <i>menu</i>
       </button>
       <q-toolbar-title :padding="1">
-        Gitgud, a Github Dashboard!
+        Gitgud
       </q-toolbar-title>
       <button @click="$refs.rightDrawer.open()">
         <i>help</i>
@@ -14,6 +14,7 @@
 
     <q-tabs slot="navigation" class="justified">
       <q-tab icon="view_quilt" route="/" exact replace>Home</q-tab>
+      <q-tab icon="view_quilt" route="/chuck" exact replace>Chuck</q-tab>
       <q-tab icon="view_day" route="/404" replace>404</q-tab>
       <q-tab icon="view_day" route="/cash" replace>402</q-tab>
     </q-tabs>
@@ -40,7 +41,7 @@
     <router-view style="padding: 10px;" class="layout-view"></router-view>
 
     <q-drawer right-side swipe-only ref="rightDrawer">
-      <div class="toolbar orange">
+      <div class="toolbar">
         <q-toolbar-title :padding="1">
             Empty!
         </q-toolbar-title>

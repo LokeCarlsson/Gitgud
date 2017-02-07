@@ -7,14 +7,14 @@
 </template>
 
 <script>
-import About from './components/info/About.vue'
+import Start from './components/info/Start.vue'
 /*
  * Root component
  */
 export default {
-  name: 'About',
+  name: 'Start',
   components: {
-    About
+    Start
   }
 }
 </script>

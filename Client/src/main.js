@@ -15,8 +15,7 @@ import axios from 'axios'
 Vue.use(Quasar)
 
 // Axios setup:
-axios.defaults.baseURL = 'https://api.api.ai/api'
-axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.API_AI_TOKEN}`
+axios.defaults.baseURL = 'http://api.icndb.com/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 Vue.prototype.$http = axios
 
