@@ -1,8 +1,13 @@
 {
-  "name": "quasar-app",
-  "version": "0.0.1",
-  "description": "A Quasar App",
-  "author": "Your Name",
+  "name": "gitgud",
+  "version": "1.0.0",
+  "description": "A Vue App",
+  "author": "Loke Carlsson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/1dv612/lc222ak-examination/issues"
+  },
+  "homepage": "https://github.com/auth0/in-memory-todo",
   "scripts": {
     "clean": "node build/script.clean.js",
     "dev": "node build/script.dev.js",
