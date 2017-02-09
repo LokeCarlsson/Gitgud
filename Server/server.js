@@ -1,18 +1,22 @@
-const dotenv       = require('dotenv')
-const logger       = require('koa-morgan')
-const http         = require('http')
-const cors         = require('koa-cors')
-const errorhandler = require('koa-err-handler')
-const bodyParser   = require('koa-body-parser')
-const koa          = require('koa')
+'use strict'
 
+import errorhandler from 'koa-err-handler'
+import body         from 'koa-body-parser'
+import compress     from 'koa-compress'
+import logger       from 'koa-morgan'
+import cors         from 'koa-cors'
+import dotenv       from 'dotenv'
+import http         from 'http'
+import koa          from 'koa'
+
+import router from './routes'
+import quoter from './quoter'
 const app = new koa()
 
-app.use(ctx => {
-  ctx.body = 'Hello Koa'
-})
-
-
-console.log('listening on port 3000');
+app.use(router.allowedMethods())
+app.use(router.routes())
 
 app.listen(3000)
+console.info('listening on port 3000')
+
+export default app
