@@ -1,24 +1,41 @@
-import errorhandler from 'koa-err-handler'
-import body         from 'koa-body-parser'
-import compress     from 'koa-compress'
-import logger       from 'koa-morgan'
-import cors         from 'koa-cors'
+import errorhandler from 'errorhandler'
+import bodyParser   from 'body-parser'
+import express      from 'express'
+import morgan       from 'morgan'
 import dotenv       from 'dotenv'
+import cors         from 'cors'
 import http         from 'http'
-import koa          from 'koa'
 
-import rootRouter from './routes'
-import userRouter from './register'
-import quoter from './quoter'
+import anonymousRoutes from './anonymous-routes'
+import protectedRoutes from './protected-routes'
+import userRoutes      from './user-routes'
 
-const app = new koa()
+let app = express()
 
-app.use(rootRouter.allowedMethods())
-app.use(rootRouter.routes())
-app.use(userRouter.allowedMethods())
-app.use(userRouter.routes())
+dotenv.load()
 
-app.listen(3000)
-console.info('listening on port 3000')
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(cors())
+
+app.use(function(err, req, res, next) {
+  if (err.name === 'StatusError') {
+    res.send(err.status, err.message)
+  } else {
+    next(err)
+  }
+})
+
+app.use(morgan('dev'))
+app.use(errorhandler())
+
+app.use(anonymousRoutes);
+app.use(protectedRoutes);
+app.use(userRoutes);
+
+
+http.createServer(app).listen(3000, function (err) {
+  console.log('Listening on http://localhost:3000')
+})
 
 export default app

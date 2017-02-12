@@ -23,9 +23,9 @@
     methods: {
       getQuote () {
         let vm = this
-        this.$http.get('jokes/random?escape=javascript')
+        this.$http.get('/api/random-quote')
         .then(function (data) {
-          vm.quote = data.data.value.joke
+          vm.quote = data.data
         })
       }
     }
