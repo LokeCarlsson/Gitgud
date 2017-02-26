@@ -23,7 +23,7 @@
     <q-drawer swipe-only ref="leftDrawer">
       <div class="toolbar">
         <q-toolbar-title :padding="1">
-            Gitgud
+          Gitgud
         </q-toolbar-title>
       </div>
 
@@ -44,7 +44,7 @@
     <q-drawer right-side swipe-only ref="rightDrawer">
       <div class="toolbar">
         <q-toolbar-title :padding="1">
-            Empty!
+          Empty!
         </q-toolbar-title>
       </div>
 
@@ -70,20 +70,23 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {}
+  export default {
+    data() {
+      return {}
+    }
   }
-}
+
 </script>
 
 <style>
-#bot {
-  max-width: 750px;
-  margin-left: auto;
-  margin-right: auto;
-}
-#messages-container {
-  margin-top: 20px;
-}
+  #bot {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #messages-container {
+    margin-top: 20px;
+  }
+
 </style>
