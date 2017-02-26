@@ -10,6 +10,7 @@ import Vue from 'vue'
 import Quasar from 'quasar'
 import router from './router'
 import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 // Install Quasar Framework
 Vue.use(Quasar)
@@ -18,9 +19,8 @@ Vue.use(Quasar)
 
 // Axios setup:
 axios.defaults.baseURL = 'http://localhost:3000'
-// axios.defaults.baseURL = 'http://localhost:3001/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-Vue.prototype.$http = axios
+Vue.use(VueAxios, axios)
 
 Quasar.start(() => {
   /* eslint-disable no-new */

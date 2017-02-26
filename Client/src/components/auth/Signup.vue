@@ -5,45 +5,36 @@
       <p>{{ error }}</p>
     </div>
     <div class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter your username"
-        v-model="credentials.username"
-      >
+      <input type="text" class="form-control" placeholder="Enter your username" v-model="credentials.username">
     </div>
     <div class="form-group">
-      <input
-        type="password"
-        class="form-control"
-        placeholder="Enter your password"
-        v-model="credentials.password"
-      >
+      <input type="password" class="form-control" placeholder="Enter your password" v-model="credentials.password">
     </div>
     <button class="btn btn-primary" @click="submit()">Sign up</button>
   </div>
 </template>
 
 <script>
-import auth from './index.js'
-export default {
-  data () {
-    return {
-      credentials: {
-        username: '',
-        password: ''
-      },
-      error: ''
-    }
-  },
-  methods: {
-    submit () {
-      let credentials = {
-        username: this.credentials.username,
-        password: this.credentials.password
+  import auth from './index.js'
+  export default {
+    data() {
+      return {
+        credentials: {
+          username: '',
+          password: ''
+        },
+        error: ''
       }
-      auth.signup(this, credentials, 'secretquote')
+    },
+    methods: {
+      submit() {
+        let credentials = {
+          username: this.credentials.username,
+          password: this.credentials.password
+        }
+        auth.signup(this, credentials)
+      }
     }
   }
-}
+
 </script>

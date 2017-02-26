@@ -1,5 +1,3 @@
-import router from '../../router'
-
 const API_URL = 'http://localhost:3000/'
 const LOGIN_URL = API_URL + 'sessions/create/'
 const SIGNUP_URL = API_URL + 'users/'
@@ -8,29 +6,23 @@ export default {
   user: {
     authenticated: false
   },
-  login (context, creds, redirect) {
-    context.$http.post(LOGIN_URL, creds, (data) => {
-      localStorage.setItem('id_token', data.id_token)
-
+  login (context, creds) {
+    context.axios.post(LOGIN_URL, creds).then((payload) => {
+      localStorage.setItem('id_token', payload.data.id_token)
       this.user.authenticated = true
+<<<<<<< HEAD
 
       if (redirect) {
         router.go(redirect)
       }
+=======
+>>>>>>> ddcee89a9ba2c589e7ada68128962eeff7ab4cd7
     })
   },
-  signup (context, creds, redirect) {
-    context.$http.post(SIGNUP_URL, creds, (data) => {
-      localStorage.setItem('id_token', data.id_token)
-
+  signup (context, creds) {
+    context.axios.post(SIGNUP_URL, creds).then((payload) => {
+      localStorage.setItem('id_token', payload.data.id_token)
       this.user.authenticated = true
-
-      if (redirect) {
-        router.go(redirect)
-      }
-    })
-    .error((err) => {
-      context.error = err
     })
   },
   logout () {
