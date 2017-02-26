@@ -10,13 +10,6 @@ export default {
     context.axios.post(LOGIN_URL, creds).then((payload) => {
       localStorage.setItem('id_token', payload.data.id_token)
       this.user.authenticated = true
-<<<<<<< HEAD
-
-      if (redirect) {
-        router.go(redirect)
-      }
-=======
->>>>>>> ddcee89a9ba2c589e7ada68128962eeff7ab4cd7
     })
   },
   signup (context, creds) {
