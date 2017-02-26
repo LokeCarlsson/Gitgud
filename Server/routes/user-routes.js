@@ -1,7 +1,7 @@
 import express from 'express'
 import _ from 'lodash'
-import config from './config'
 import jwt from 'jsonwebtoken'
+import config from '../config'
 
 let app = express.Router()
 

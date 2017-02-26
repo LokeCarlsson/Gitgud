@@ -6,9 +6,9 @@ import dotenv       from 'dotenv'
 import cors         from 'cors'
 import http         from 'http'
 
-import anonymousRoutes from './anonymous-routes'
-import protectedRoutes from './protected-routes'
-import userRoutes      from './user-routes'
+import anonymousRoutes from './routes/anonymous-routes'
+import protectedRoutes from './routes/protected-routes'
+import userRoutes      from './routes/user-routes'
 
 let app = express()
 
