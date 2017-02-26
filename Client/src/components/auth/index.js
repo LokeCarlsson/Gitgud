@@ -26,9 +26,11 @@ export default {
     var jwt = localStorage.getItem('id_token')
     if (jwt) {
       this.user.authenticated = true
+      return true
     }
     else {
       this.user.authenticated = false
+      return false
     }
   },
   getAuthHeader () {

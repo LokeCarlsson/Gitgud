@@ -1,23 +1,28 @@
 <template>
   <div class="col-sm-4 col-sm-offset-4">
-    <h2>Sign Up</h2>
-    <div class="alert alert-danger" v-if="error">
-      <p>{{ error }}</p>
+    <div v-if="!user.authenticated">
+      <h2>Sign Up</h2>
+      <div class="alert alert-danger" v-if="error">
+        <p>{{ error }}</p>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Enter your username" v-model="credentials.username">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Enter your password" v-model="credentials.password">
+      </div>
+      <button class="btn btn-primary" @click="submit()">Sign up</button>
     </div>
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Enter your username" v-model="credentials.username">
-    </div>
-    <div class="form-group">
-      <input type="password" class="form-control" placeholder="Enter your password" v-model="credentials.password">
-    </div>
-    <button class="btn btn-primary" @click="submit()">Sign up</button>
+  <div v-if="user.authenticated">
+
+  </div>
   </div>
 </template>
 
 <script>
   import auth from './index.js'
   export default {
-    data() {
+    data () {
       return {
         credentials: {
           username: '',
@@ -27,7 +32,7 @@
       }
     },
     methods: {
-      submit() {
+      submit () {
         let credentials = {
           username: this.credentials.username,
           password: this.credentials.password

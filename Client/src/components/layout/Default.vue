@@ -71,7 +71,7 @@
 
 <script>
   export default {
-    data() {
+    data () {
       return {}
     }
   }
@@ -84,7 +84,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   #messages-container {
     margin-top: 20px;
   }

@@ -13,13 +13,13 @@
 <script>
   import auth from './index.js'
   export default {
-    data() {
+    data () {
       return {
         quote: ''
       }
     },
     methods: {
-      getQuote() {
+      getQuote () {
         this.$http
           .get('http://localhost:3000/api/protected/random-quote', (data) => {
             this.quote = data
@@ -30,7 +30,7 @@
       }
     },
     route: {
-      canActivate() {
+      canActivate () {
         return auth.user.authenticated
       }
     }

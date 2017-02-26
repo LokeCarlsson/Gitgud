@@ -14,16 +14,16 @@
 
 <script>
   export default {
-    data() {
+    data () {
       return {
         quote: ''
       }
     },
-    mounted() {
+    mounted () {
       this.getQuote()
     },
     methods: {
-      getQuote() {
+      getQuote () {
         let vm = this
         this.axios.get('/api/random-quote')
           .then((data) => {
