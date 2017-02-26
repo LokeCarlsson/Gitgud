@@ -1,5 +1,5 @@
 import express from 'express'
-import quoter from './quoter'
+import quoter from '../quoter'
 
 let app = express.Router()
 

@@ -1,7 +1,7 @@
 import jwt from 'express-jwt'
 import express from 'express'
-import config from './config'
-import quoter from './quoter'
+import config from '../config'
+import quoter from '../quoter'
 
 let app = express.Router()
 

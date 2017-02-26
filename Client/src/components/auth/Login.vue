@@ -18,7 +18,8 @@
           type="password"
           class="form-control"
           placeholder="Enter your password"
-          v-model="credentials.password">
+          v-model="credentials.password"
+          v-on:keyup.enter=submit()>
       </div>
       <button class="btn btn-primary" @click="submit()">Log in</button>
     </div>

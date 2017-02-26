@@ -18,9 +18,6 @@ export default {
         router.go(redirect)
       }
     })
-    .error((err) => {
-      context.error = err
-    })
   },
   signup (context, creds, redirect) {
     context.$http.post(SIGNUP_URL, creds, (data) => {
