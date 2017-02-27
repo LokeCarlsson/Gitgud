@@ -4,23 +4,27 @@ const SIGNUP_URL = API_URL + 'users/'
 
 export default {
   user: {
-    authenticated: false
+    authenticated: false,
+    username: 'default'
   },
   login (context, creds) {
     context.axios.post(LOGIN_URL, creds).then((payload) => {
       localStorage.setItem('id_token', payload.data.id_token)
       this.user.authenticated = true
+      this.user.username = creds.username
     })
   },
   signup (context, creds) {
     context.axios.post(SIGNUP_URL, creds).then((payload) => {
       localStorage.setItem('id_token', payload.data.id_token)
       this.user.authenticated = true
+      this.user.username = creds.username
     })
   },
   logout () {
     localStorage.removeItem('id_token')
     this.user.authenticated = false
+    this.user.username = ''
   },
   checkAuth () {
     var jwt = localStorage.getItem('id_token')

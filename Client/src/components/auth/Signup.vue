@@ -28,7 +28,8 @@
           username: '',
           password: ''
         },
-        error: ''
+        error: '',
+        user: auth.user
       }
     },
     methods: {

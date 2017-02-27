@@ -21,7 +21,7 @@
       <button class="btn btn-primary" @click="submit()">Log in</button>
     </div>
     <div v-if="user.authenticated">
-      <h2>Welcome!</h2>
+      <h2>Welcome {{ user.username }}!</h2>
       <button class="btn btn-primary" @click="logout()">Log out</button>
     </div>
   </div>
