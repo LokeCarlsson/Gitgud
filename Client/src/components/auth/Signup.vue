@@ -39,6 +39,7 @@
           password: this.credentials.password
         }
         auth.signup(this, credentials)
+        this.$router.push('/')
       }
     }
   }

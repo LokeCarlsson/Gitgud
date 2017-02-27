@@ -1,7 +1,7 @@
 <template>
   <q-layout>
-    <div slot="header" class="toolbar">
-      <button class="hide-on-drawer-visible" @click="$refs.leftDrawer.open()">
+    <div slot="header" class="toolbar hide-on-drawer-visible">
+      <button class="" @click="$refs.leftDrawer.open()">
         <i>menu</i>
       </button>
       <q-toolbar-title class="hide-on-drawer-visible" :padding="1">
@@ -15,32 +15,40 @@
     <q-tabs slot="navigation" class="justified">
       <q-tab icon="home" route="/" exact replace>Home</q-tab>
       <q-tab icon="library_books" route="/chuck" exact replace>Chuck</q-tab>
-      <q-tab v-if="!user.authenticated" icon="perm_identity" route="/login" replace>Login</q-tab>
-      <q-tab v-if="!user.authenticated" icon="lock_outline" route="/signup" replace>Sign up</q-tab>
       <q-tab v-if="user.authenticated" icon="library_add" route="/secretquote" replace>Secret Quote</q-tab>
     </q-tabs>
 
     <q-drawer ref="leftDrawer">
       <div class="toolbar">
+        <div v-if="user.authenticated" class="list-label">Welcome,</div>
         <q-toolbar-title :padding="1">
           {{ user.username }}
         </q-toolbar-title>
       </div>
 
       <div class="list no-border platform-delimiter">
-        <q-drawer-link icon="home" to="/" exact>
-          Home
-        </q-drawer-link>
-        <hr>
-        <!-- <div class="list-label">Links</div> -->
-        <q-drawer-link icon="account_box" to="/about">
+        <!--Authenticated-->
+        <q-drawer-link v-if="user.authenticated" icon="account_box" to="/about">
           My account
         </q-drawer-link>
-        <div class="item">
+        <q-drawer-link v-if="user.authenticated" icon="settings" to="/chuck">
+          Settings
+        </q-drawer-link>
+
+        <!--Not authenticated-->
+        <q-drawer-link v-if="!user.authenticated" icon="perm_identity" to="/login">
+          Login
+        </q-drawer-link>
+        <q-drawer-link v-if="!user.authenticated" icon="lock_outline" to="/signup">
+          Sign up
+        </q-drawer-link>
+        <hr>
+
+        <!--Authenticated-->
+        <div v-if="user.authenticated" @click="logout()" class="item item-link">
           <i class="item-primary" @click="logout()">power_settings_new</i>
-          <div class="item-content">Log out</div>
+          <div class="item-content">Sign out</div>
         </div>
-      </div>
     </q-drawer>
 
     <router-view style="padding: 10px;" class="layout-view"></router-view>

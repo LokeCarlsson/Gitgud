@@ -20,10 +20,6 @@
       </div>
       <button class="btn btn-primary" @click="submit()">Log in</button>
     </div>
-    <div v-if="user.authenticated">
-      <h2>Welcome {{ user.username }}!</h2>
-      <button class="btn btn-primary" @click="logout()">Log out</button>
-    </div>
   </div>
 </template>
 
@@ -47,9 +43,7 @@
           password: this.credentials.password
         }
         auth.login(this, credentials)
-      },
-      logout () {
-        auth.logout()
+        this.$router.push('/')
       }
     }
   }

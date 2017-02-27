@@ -5,7 +5,7 @@ const SIGNUP_URL = API_URL + 'users/'
 export default {
   user: {
     authenticated: false,
-    username: 'default'
+    username: 'Gitgud'
   },
   login (context, creds) {
     context.axios.post(LOGIN_URL, creds).then((payload) => {
@@ -24,7 +24,7 @@ export default {
   logout () {
     localStorage.removeItem('id_token')
     this.user.authenticated = false
-    this.user.username = ''
+    this.user.username = 'Gitgud'
   },
   checkAuth () {
     var jwt = localStorage.getItem('id_token')
