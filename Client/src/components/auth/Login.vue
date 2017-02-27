@@ -7,10 +7,16 @@
         <p>{{ error }}</p>
       </div>
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Enter your username" v-model="credentials.username">
+        <input type="text"
+        class="form-control"
+        placeholder="Enter your username"
+        v-model="credentials.username">
       </div>
       <div class="form-group">
-        <input type="password" class="form-control" placeholder="Enter your password" v-model="credentials.password">
+        <input type="password"
+        class="form-control"
+        placeholder="Enter your password"
+        v-model="credentials.password">
       </div>
       <button class="btn btn-primary" @click="submit()">Log in</button>
     </div>
