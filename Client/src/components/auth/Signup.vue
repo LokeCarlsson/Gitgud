@@ -28,7 +28,8 @@
           username: '',
           password: ''
         },
-        error: ''
+        error: '',
+        user: auth.user
       }
     },
     methods: {
@@ -38,6 +39,7 @@
           password: this.credentials.password
         }
         auth.signup(this, credentials)
+        this.$router.push('/')
       }
     }
   }

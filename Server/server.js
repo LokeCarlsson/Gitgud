@@ -1,5 +1,6 @@
 import errorhandler from 'errorhandler'
 import bodyParser   from 'body-parser'
+import mongoose			from 'mongoose'
 import express      from 'express'
 import morgan       from 'morgan'
 import dotenv       from 'dotenv'
@@ -9,14 +10,20 @@ import http         from 'http'
 import anonymousRoutes from './routes/anonymous-routes'
 import protectedRoutes from './routes/protected-routes'
 import userRoutes      from './routes/user-routes'
+import config 			   from './config/main'
 
 let app = express()
+app.server = http.createServer(app)
+
+mongoose.connect(config.database)
 
 dotenv.load()
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(cors())
+app.use(cors({
+	exposedHeaders: config.corsHeaders
+}))
 
 app.use(function(err, req, res, next) {
   if (err.name === 'StatusError') {
@@ -29,13 +36,16 @@ app.use(function(err, req, res, next) {
 app.use(morgan('dev'))
 app.use(errorhandler())
 
-app.use(anonymousRoutes);
-app.use(protectedRoutes);
-app.use(userRoutes);
+
+app.use(anonymousRoutes)
+app.use(protectedRoutes)
+// anonymousRoutes(app)
+// protectedRoutes(app)
+userRoutes(app)
 
 
-http.createServer(app).listen(3000, function (err) {
-  console.log('Listening on http://localhost:3000')
+app.server.listen(config.port || 3000, () => {
+	console.log('Server listening on port ', config.port)
 })
 
 export default app
