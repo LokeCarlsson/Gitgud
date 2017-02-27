@@ -16,7 +16,7 @@ export default {
   },
   signup (context, creds) {
     context.axios.post(SIGNUP_URL, creds).then((payload) => {
-      localStorage.setItem('_id', payload.data._id)
+      localStorage.setItem('id_token', payload.data.id_token)
       this.user.authenticated = true
       this.user.username = creds.username
     })
@@ -39,7 +39,7 @@ export default {
   },
   getAuthHeader () {
     return {
-      'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+      'Authorization': 'JWT ' + localStorage.getItem('id_token')
     }
   }
 }

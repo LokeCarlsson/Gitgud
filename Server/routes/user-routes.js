@@ -1,9 +1,12 @@
-import { register } from '../controllers/userController'
+import { register, login } from '../controllers/userController'
 import express from 'express'
+import passport from 'passport'
+
+const requireLogin = passport.authenticate('local', { session: true })
 
 export default (app) => {
   const router = express.Router()
   router.post('/register', register)
-  // app.post('/login', function(req, res) login)
+  router.post('/login', requireLogin, login)
   app.use('/', router)
 }

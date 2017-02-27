@@ -15,7 +15,6 @@ const setUserInfo = (request) => {
   }
 }
 
-
 export const register = (req, res, next) => {
   const username = req.body.username
   const password = req.body.password
@@ -55,9 +54,28 @@ export const register = (req, res, next) => {
       let userInfo = setUserInfo(user)
 
       res.status(201).json({
-        token: 'JWT ' + generateToken(userInfo),
+        id_token: 'JWT ' + generateToken(userInfo),
         user: userInfo
       })
     })
-})
+  })
+}
+
+export const login = (req, res) => {
+  const userInfo = setUserInfo(req.user)
+
+  if (!req.body.username)
+  return res.status(422).send({
+    error: 'You must provide an username.'
+  })
+
+  if (!req.body.password)
+  return res.status(422).send({
+    error: 'You must provide a password.'
+  })
+
+  res.status(200).json({
+    token: `JWT ${generateToken(userInfo)}`,
+    user: userInfo
+  })
 }
