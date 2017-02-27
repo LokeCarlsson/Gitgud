@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/auth0/in-memory-todo",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.16.1",
     "compression": "^1.6.2",
     "cors": "^2.8.1",
@@ -27,6 +28,7 @@
     "express-jwt": "^5.1.0",
     "jsonwebtoken": "^7.2.1",
     "lodash": "^4.17.4",
+    "mongoose": "^4.8.5",
     "morgan": "^1.8.1"
   },
   "devDependencies": {
