@@ -2,7 +2,9 @@ import passport from 'passport'
 import user from '../models/userModel'
 import config from './main'
 import LocalStrategy from 'passport-local'
+import GitHubStrategy from 'passport-github2'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
+import settings from '../config.js'
 
 
 const localOptions = {
@@ -30,16 +32,13 @@ const localLogin = new LocalStrategy(localOptions, (username, password, done) =>
   })
 })
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
+passport.serializeUser(function (user, cb) {
+  cb(null, user)
+})
 
-passport.deserializeUser(function (user, done) {
-    //If using Mongoose with MongoDB; if other you will need JS specific to that schema
-    user.findById(id, function (err, user) {
-        done(err, user);
-    });
-});
+passport.deserializeUser(function (obj, cb) {
+  cb(null, obj)
+})
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeader(),
@@ -58,5 +57,59 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
   })
 })
 
+const githubOptions = {
+  clientID: "3f3301eacaac9f40bb7f",
+  clientSecret: "448476d278392ab649d1e2d57807d878b3b7320a",
+  callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+}
+
+const githubLogin = new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
+  // user.findOrCreate({ githubId: profile.id }, function (err, user) {
+  //   return done(err, user)
+  // })
+    process.nextTick(() => {
+      return done(null, profile)
+    })
+
+  // user.findOne({
+  //   githubId: profile.id
+  // }, (err, existingUser) => {
+  //   if (err)
+  //     return next(err)
+
+  //   if (existingUser) {
+  //     existingUser.update((err, user) => {
+  //       if (err)
+  //         return next(err)
+
+  //       let userInfo = setUserInfo(user)
+
+  //       res.status(201).json({
+  //         id_token: 'JWT ' + generateToken(userInfo),
+  //         user: userInfo
+  //       })
+  //     })
+  //   } else {
+  //     let user = new User({
+  //       username: username,
+  //       password: password
+  //     })
+
+  //     user.save((err, user) => {
+  //       if (err)
+  //         return next(err)
+
+  //       let userInfo = setUserInfo(user)
+
+  //       res.status(201).json({
+  //         id_token: 'JWT ' + generateToken(userInfo),
+  //         user: userInfo
+  //       })
+  //     })
+  //   }
+  // })
+})
+
 passport.use(jwtLogin)
 passport.use(localLogin)
+passport.use(githubLogin)

@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken'
 import User from '../models/userModel'
 import config from '../config/main'
+import passport from 'passport'
+import passportService from '../config/passport'
 
 const generateToken = (user) => {
   return jwt.sign(user, config.secret, {
@@ -79,3 +81,4 @@ export const login = (req, res) => {
     user: userInfo
   })
 }
+
