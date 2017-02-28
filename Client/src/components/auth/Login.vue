@@ -4,7 +4,7 @@
       <h2>Log In</h2>
       <p>Log in to your account to get some great quotes.</p>
       <div class="alert alert-danger" v-if="error">
-        <p>{{ error }}</p>
+        <p :key="error"> {{ error }}</p>
       </div>
       <div class="form-group">
         <input type="text"

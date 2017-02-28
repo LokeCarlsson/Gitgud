@@ -21,7 +21,7 @@
     <q-drawer ref="leftDrawer">
       <div class="toolbar">
         <div v-if="user.authenticated" class="list-label">Welcome,</div>
-        <q-toolbar-title :padding="1">
+        <q-toolbar-title :key="user.username" :padding="1">
           {{ user.username }}
         </q-toolbar-title>
       </div>
@@ -49,6 +49,7 @@
           <i class="item-primary" @click="logout()">power_settings_new</i>
           <div class="item-content">Sign out</div>
         </div>
+      </div>
     </q-drawer>
 
     <router-view style="padding: 10px;" class="layout-view"></router-view>

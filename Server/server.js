@@ -1,6 +1,7 @@
 import errorhandler from 'errorhandler'
 import bodyParser   from 'body-parser'
 import mongoose			from 'mongoose'
+import passport     from 'passport'
 import express      from 'express'
 import morgan       from 'morgan'
 import dotenv       from 'dotenv'
@@ -36,6 +37,8 @@ app.use(function(err, req, res, next) {
 app.use(morgan('dev'))
 app.use(errorhandler())
 
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(anonymousRoutes)
 app.use(protectedRoutes)

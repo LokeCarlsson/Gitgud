@@ -4,6 +4,7 @@ import config from './main'
 import LocalStrategy from 'passport-local'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 
+
 const localOptions = {
   usernameField: 'username',
   passwordField: 'password'
@@ -28,6 +29,17 @@ const localLogin = new LocalStrategy(localOptions, (username, password, done) =>
     })
   })
 })
+
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function (user, done) {
+    //If using Mongoose with MongoDB; if other you will need JS specific to that schema
+    user.findById(id, function (err, user) {
+        done(err, user);
+    });
+});
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeader(),

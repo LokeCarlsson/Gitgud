@@ -6,7 +6,7 @@
       </button>
     <div class="quote-area" v-if="quote">
       <h4>
-        <blockquote>{{ quote }}</blockquote>
+        <blockquote :key="quote">{{ quote }}</blockquote>
       </h4>
     </div>
   </div>

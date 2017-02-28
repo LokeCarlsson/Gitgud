@@ -2,9 +2,9 @@
   <div class="col-sm-6 col-sm-offset-3">
     <h1>Secret quote!</h1>
     <button class="btn btn-warning" v-on:click="getQuote()">Get a Quote</button>
-    <div class="quote-area" v-if="quote">
+    <div :key="quote" class="quote-area" v-if="quote">
       <h2>
-        <blockquote>{{ quote }}</blockquote>
+        <blockquote :key="quote">{{ quote }}</blockquote>
       </h2>
     </div>
   </div>

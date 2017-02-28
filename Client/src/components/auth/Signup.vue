@@ -3,7 +3,7 @@
     <div v-if="!user.authenticated">
       <h2>Sign Up</h2>
       <div class="alert alert-danger" v-if="error">
-        <p>{{ error }}</p>
+        <p :key="error">{{ error }}</p>
       </div>
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Enter your username" v-model="credentials.username">
