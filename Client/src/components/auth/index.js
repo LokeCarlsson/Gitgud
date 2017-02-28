@@ -4,7 +4,7 @@ const SIGNUP_URL = API_URL + 'register/'
 
 export default {
   user: {
-    authenticated: this.checkAuth() || false,
+    authenticated: localStorage.getItem('token') || false,
     username: 'Gitgud'
   },
   login (context, creds) {

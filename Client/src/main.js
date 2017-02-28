@@ -15,11 +15,10 @@ import VueAxios from 'vue-axios'
 // Install Quasar Framework
 Vue.use(Quasar)
 
-// Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token')
-
 // Axios setup:
 axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('id_token')
 Vue.use(VueAxios, axios)
 
 Quasar.start(() => {

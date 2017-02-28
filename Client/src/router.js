@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+// Errors
 import NotFoundView from './components/error/404.vue'
 import PaymentRequiredView from './components/error/402.vue'
 
+// Routing files
 import HomeView from './components/layout/Default.vue'
 import Chuck from './components/test/Chuck.vue'
 import Start from './components/info/Start.vue'
