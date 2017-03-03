@@ -32,12 +32,12 @@ const localLogin = new LocalStrategy(localOptions, (username, password, done) =>
   })
 })
 
-passport.serializeUser(function (user, cb) {
-  cb(null, user)
+passport.serializeUser(function (user, done) {
+  done(null, user)
 })
 
-passport.deserializeUser(function (obj, cb) {
-  cb(null, obj)
+passport.deserializeUser(function (obj, done) {
+  done(null, obj)
 })
 
 const jwtOptions = {
@@ -64,52 +64,10 @@ const githubOptions = {
 }
 
 const githubLogin = new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
-  // user.findOrCreate({ githubId: profile.id }, function (err, user) {
-  //   return done(err, user)
-  // })
-    process.nextTick(() => {
-      return done(null, profile)
-    })
 
-  // user.findOne({
-  //   githubId: profile.id
-  // }, (err, existingUser) => {
-  //   if (err)
-  //     return next(err)
+  return done(null, profile)
 
-  //   if (existingUser) {
-  //     existingUser.update((err, user) => {
-  //       if (err)
-  //         return next(err)
-
-  //       let userInfo = setUserInfo(user)
-
-  //       res.status(201).json({
-  //         id_token: 'JWT ' + generateToken(userInfo),
-  //         user: userInfo
-  //       })
-  //     })
-  //   } else {
-  //     let user = new User({
-  //       username: username,
-  //       password: password
-  //     })
-
-  //     user.save((err, user) => {
-  //       if (err)
-  //         return next(err)
-
-  //       let userInfo = setUserInfo(user)
-
-  //       res.status(201).json({
-  //         id_token: 'JWT ' + generateToken(userInfo),
-  //         user: userInfo
-  //       })
-  //     })
-  //   }
-  // })
 })
 
 passport.use(jwtLogin)
-passport.use(localLogin)
 passport.use(githubLogin)

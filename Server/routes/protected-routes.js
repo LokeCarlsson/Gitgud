@@ -9,10 +9,10 @@ let jwtCheck = jwt({
   secret: config.secret
 })
 
-app.use('/api/protected', jwtCheck);
+// app.use('/api/protected', jwtCheck);
 
-app.get('/api/protected/random-quote', function(req, res) {
-  res.status(200).send(quoter())
-})
+// app.get('/api/protected/random-quote', function(req, res) {
+//   res.status(200).send(quoter())
+// })
 
 export default app
