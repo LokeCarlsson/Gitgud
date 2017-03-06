@@ -8,6 +8,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 import http from 'http'
 
+import headers from './middlewares/headers'
 import { router } from './routes/routes'
 import config from './config/main'
 
@@ -16,6 +17,10 @@ app.server = http.createServer(app)
 
 mongoose.connect(config.database)
 
+app.use(cors({
+	exposedHeaders: config.corsHeaders
+}))
+app.use(headers)
 app.use(partials())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())

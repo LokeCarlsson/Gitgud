@@ -13,8 +13,11 @@ const generateToken = (user) => {
 
 const setUserInfo = (request) => {
   return {
-    _id: request._id,
+    displayName: request.displayName,
     username: request.username,
+    profileUrl: request.profileUrl,
+    avatarUrl: request._json.avatar_url,
+    bio: request._json.bio
   }
 }
 
@@ -33,8 +36,12 @@ export const register = (req, res, next) => {
     if (err)
       return next(err)
 
-    if (existingUser)
-      return next(existingUser)
+    if (existingUser) {
+      res.status(201).send({
+        id_token: 'JWT ' + generateToken(userScheme),
+        user: userScheme
+      })
+    }
 
     let githubUser = new Github({
       displayName: displayName,
@@ -48,7 +55,7 @@ export const register = (req, res, next) => {
       if (err)
         return next(err)
 
-      res.status(201).json({
+      res.status(201).send({
         id_token: 'JWT ' + generateToken(userScheme),
         user: userScheme
       })

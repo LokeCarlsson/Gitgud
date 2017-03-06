@@ -5,20 +5,20 @@ import passport from 'passport'
 import passportService from '../config/passport'
 import user from '../models/userModel'
 
-const authGithub = passport.authenticate('github', { scope: [ 'user:email' ] })
-const requireLogin = passport.authenticate('local', { session: true })
+const requireAuth = passport.authenticate('jwt', { session: true })
+const requireLogin = passport.authenticate('github', { scope: [ 'user:email' ] })
 
 export const router = express.Router()
 
 router.get('/register', register)
 router.get('/login', requireLogin, login)
 
-router.get('/auth/github', authGithub, (req, res) => {
+router.get('/auth/github', requireLogin, (req, res) => {
   res.status(200).send("Should not display this!!")
 })
 
 router.get('/auth/github/callback', passport.authenticate('github', 
-{ failureRedirect: '/fail', failureFlash: true }), 
+{ failureRedirect: '/fail' }), 
 (req, res, next) => {
   register(req, res, next)
   // res.redirect('/account')
@@ -29,7 +29,7 @@ router.get('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/account', ensureAuthenticated, (req, res) => {
+router.get('/account', requireAuth, (req, res) => {
   res.status(200).json(req.user)
 })
 

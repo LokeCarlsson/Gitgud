@@ -6,44 +6,28 @@
       <div class="alert alert-danger" v-if="error">
         <p :key="error"> {{ error }}</p>
       </div>
-      <div class="form-group">
-        <input type="text"
-        class="form-control"
-        placeholder="Enter your username"
-        v-model="credentials.username">
-      </div>
-      <div class="form-group">
-        <input type="password"
-        class="form-control"
-        placeholder="Enter your password"
-        v-model="credentials.password">
-      </div>
-      <button class="btn btn-primary" @click="submit()">Log in</button>
+      <button class="btn btn-primary" @click="lock.show()">Log in</button>
     </div>
   </div>
 </template>
 
 <script>
   import auth from './index.js'
+  import Auth0Lock from 'auth0-lock'
   export default {
     data () {
       return {
-        credentials: {
-          username: '',
-          password: ''
-        },
         error: '',
-        user: auth.user
+        user: auth.user,
+        lock: new Auth0Lock(
+        'Jsj9njAAuO3Rb3FPfLjwN0ypRRRpTiJW',
+        'ilmmec.eu.auth0.com')
       }
     },
     methods: {
       submit () {
-        let credentials = {
-          username: this.credentials.username,
-          password: this.credentials.password
-        }
-        auth.login(this, credentials)
-        this.$router.push('/')
+        // auth.login(this)
+        // this.$router.push('/')
       }
     }
   }

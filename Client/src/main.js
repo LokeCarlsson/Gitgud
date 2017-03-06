@@ -19,6 +19,7 @@ Vue.use(Quasar)
 axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('id_token')
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 Vue.use(VueAxios, axios)
 
 Quasar.start(() => {

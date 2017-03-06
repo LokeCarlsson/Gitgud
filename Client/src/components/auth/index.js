@@ -1,5 +1,5 @@
 const API_URL = 'http://localhost:3000/'
-const LOGIN_URL = API_URL + 'login/'
+const LOGIN_URL = API_URL + 'auth/github/'
 const SIGNUP_URL = API_URL + 'register/'
 
 export default {
@@ -7,11 +7,11 @@ export default {
     authenticated: localStorage.getItem('token') || false,
     username: 'Gitgud'
   },
-  login (context, creds) {
-    context.axios.post(LOGIN_URL, creds).then((payload) => {
+  login (context) {
+    context.axios.get(LOGIN_URL).then((payload) => {
+      console.log(payload)
       localStorage.setItem('token', payload.data.token)
       this.user.authenticated = true
-      this.user.username = creds.username
     })
   },
   signup (context, creds) {
@@ -23,6 +23,7 @@ export default {
   },
   logout () {
     localStorage.removeItem('token')
+    localStorage.removeItem('profile')
     this.user.authenticated = false
     this.user.username = 'Gitgud'
   },

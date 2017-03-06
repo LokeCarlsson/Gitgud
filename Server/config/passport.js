@@ -1,5 +1,5 @@
 import passport from 'passport'
-import user from '../models/userModel'
+import githubUser from '../models/githubModel'
 import config from './main'
 import LocalStrategy from 'passport-local'
 import GitHubStrategy from 'passport-github2'
@@ -46,7 +46,7 @@ const jwtOptions = {
 }
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  user.findById(payload._id, (err, user) => {
+  githubUser.findById(payload._id, (err, user) => {
     if (err)
     return done(err, false)
 
@@ -65,7 +65,6 @@ const githubOptions = {
 
 const githubLogin = new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
 
-  console.log('THis is sparta!')
   return done(null, profile)
 
 })
