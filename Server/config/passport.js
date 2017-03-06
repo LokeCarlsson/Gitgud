@@ -65,6 +65,7 @@ const githubOptions = {
 
 const githubLogin = new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
 
+  console.log('THis is sparta!')
   return done(null, profile)
 
 })

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import User from '../models/userModel'
+import Github from '../models/githubModel'
 import config from '../config/main'
 import passport from 'passport'
 import passportService from '../config/passport'
@@ -18,46 +19,38 @@ const setUserInfo = (request) => {
 }
 
 export const register = (req, res, next) => {
-  const username = req.body.username
-  const password = req.body.password
+  const displayName = req.user.displayName
+  const username = req.user.username
+  const profileUrl = req.user.profileUrl
+  const avatarUrl = req.user._json.avatar_url
+  const bio = req.user._json.bio
 
-  var userScheme = setUserInfo(req);
+  const userScheme = setUserInfo(req.user)
 
-  if (!username)
-    return res.status(422).send({
-      error: 'You must provide an username.'
-    })
-
-  if (!password)
-    return res.status(422).send({
-      error: 'You must provide a password.'
-    })
-
-  User.findOne({
+  Github.findOne({
     username: username
   }, (err, existingUser) => {
     if (err)
       return next(err)
 
     if (existingUser)
-      return res.status(422).send({
-        error: 'The username is already taken!'
-      })
+      return next(existingUser)
 
-    let user = new User({
+    let githubUser = new Github({
+      displayName: displayName,
       username: username,
-      password: password
+      profileUrl: profileUrl,
+      avatarUrl: avatarUrl,
+      bio: bio
     })
 
-    user.save((err, user) => {
+    githubUser.save((err, user) => {
       if (err)
         return next(err)
 
-      let userInfo = setUserInfo(user)
-
       res.status(201).json({
-        id_token: 'JWT ' + generateToken(userInfo),
-        user: userInfo
+        id_token: 'JWT ' + generateToken(userScheme),
+        user: userScheme
       })
     })
   })
@@ -65,16 +58,6 @@ export const register = (req, res, next) => {
 
 export const login = (req, res) => {
   const userInfo = setUserInfo(req.user)
-
-  if (!req.body.username)
-  return res.status(422).send({
-    error: 'You must provide an username.'
-  })
-
-  if (!req.body.password)
-  return res.status(422).send({
-    error: 'You must provide a password.'
-  })
 
   res.status(200).json({
     token: `JWT ${generateToken(userInfo)}`,

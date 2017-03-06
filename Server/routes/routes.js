@@ -10,19 +10,18 @@ const requireLogin = passport.authenticate('local', { session: true })
 
 export const router = express.Router()
 
-router.post('/register', register)
-router.post('/login', requireLogin, login)
+router.get('/register', register)
+router.get('/login', requireLogin, login)
 
 router.get('/auth/github', authGithub, (req, res) => {
-  console.log(req.session.passport.user)
   res.status(200).send("Should not display this!!")
 })
 
 router.get('/auth/github/callback', passport.authenticate('github', 
 { failureRedirect: '/fail', failureFlash: true }), 
 (req, res, next) => {
-  save(req, res, next)
-  res.redirect('/account')
+  register(req, res, next)
+  // res.redirect('/account')
 })
 
 router.get('/logout', (req, res) => {
