@@ -1,5 +1,6 @@
 export default {
   request: function (req, token) {
+    console.log(req)
     this.options.http._setHeaders.call(this, req, {Authorization: 'JWT ' + token})
   },
 

@@ -87,6 +87,9 @@
         user: auth.user
       }
     },
+    mounted () {
+      auth.login(this.$root.$route.query.token)
+    },
     methods: {
       logout () {
         auth.logout()

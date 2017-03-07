@@ -20,6 +20,10 @@ router.get('/auth/github', requireLogin, (req, res) => {
   res.status(200).send("Should not display this!!")
 })
 
+router.get('/auth/user', (req, res) => {
+  res.status(200).send(req.user)
+})
+
 router.get('/auth/github/callback', passport.authenticate('github', 
 { failureRedirect: '/fail' }), 
 (req, res, next) => {

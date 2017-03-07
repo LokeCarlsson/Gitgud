@@ -25,7 +25,7 @@
     methods: {
       getQuote () {
         let vm = this
-        this.axios.get('/api/random-quote')
+        this.axios.get('/')
           .then((data) => {
             vm.quote = data.data
           })

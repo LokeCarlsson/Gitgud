@@ -22,12 +22,6 @@
         user: auth.user
       }
     }
-    // methods: {
-    //   submit () {
-    //     auth.login(this)
-    //     this.$router.push('/')
-    //   }
-    // }
   }
 
 </script>

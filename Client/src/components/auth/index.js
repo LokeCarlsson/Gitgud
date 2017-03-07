@@ -1,17 +1,11 @@
-const API_URL = 'http://127.0.0.1:3000/'
-const LOGIN_URL = API_URL + 'login/'
-
 export default {
   user: {
     authenticated: localStorage.getItem('token') || false,
     username: 'Gitgud'
   },
-  login (context) {
-    context.axios.get(LOGIN_URL).then((payload) => {
-      console.log(payload)
-      localStorage.setItem('token', payload.data.token)
-      this.user.authenticated = true
-    })
+  login (token) {
+    localStorage.setItem('token', token)
+    this.user.authenticated = true
   },
   logout () {
     localStorage.removeItem('token')
