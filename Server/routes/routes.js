@@ -37,9 +37,9 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/account', requireAuth, (req, res) => {
-  res.status(200).json(req.user)
+  console.log(req)
+  res.status(200).send(req.user)
 })
-
 
 router.get('/fail', (req, res) => {
   res.status(200).send("Hahha, you failed!! /fail")

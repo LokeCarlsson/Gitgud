@@ -89,10 +89,17 @@
     },
     mounted () {
       auth.login(this.$root.$route.query.token)
+      this.getAccount()
     },
     methods: {
       logout () {
         auth.logout()
+      },
+      getAccount () {
+        this.axios.get('/account')
+        .then((data) => {
+          console.log('data ', data)
+        })
       }
     }
   }

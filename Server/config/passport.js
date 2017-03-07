@@ -46,14 +46,16 @@ const jwtOptions = {
 }
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
+  console.log('payload', payload._id)
   githubUser.findById(payload._id, (err, user) => {
+    console.log('pleowekewif')
     if (err)
-    return done(err, false)
+      return done(err, false)
 
     if (user)
-    done(null, user)
+      done(null, user)
     else
-    done(null, false)
+      done(null, false)
   })
 })
 
@@ -64,9 +66,7 @@ const githubOptions = {
 }
 
 const githubLogin = new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
-
   return done(null, profile)
-
 })
 
 passport.use(jwtLogin)
