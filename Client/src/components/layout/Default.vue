@@ -39,9 +39,6 @@
         <q-drawer-link v-if="!user.authenticated" icon="perm_identity" to="/login">
           Login
         </q-drawer-link>
-        <q-drawer-link v-if="!user.authenticated" icon="lock_outline" to="/signup">
-          Sign up
-        </q-drawer-link>
         <hr>
 
         <!--Authenticated-->

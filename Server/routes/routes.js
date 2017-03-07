@@ -12,6 +12,9 @@ export const router = express.Router()
 
 router.get('/register', register)
 router.get('/login', requireLogin, login)
+// router.get('/login', (req, res) => {
+//   res.redirect('/auth/github')
+// })
 
 router.get('/auth/github', requireLogin, (req, res) => {
   res.status(200).send("Should not display this!!")

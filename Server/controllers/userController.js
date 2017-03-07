@@ -37,10 +37,13 @@ export const register = (req, res, next) => {
       return next(err)
 
     if (existingUser) {
-      res.status(201).send({
-        id_token: 'JWT ' + generateToken(userScheme),
-        user: userScheme
-      })
+      // res.status(201).send({
+      //   id_token: 'JWT ' + generateToken(userScheme),
+      //   user: userScheme
+      // })
+      const userInfo = setUserInfo(req.user)
+      res.redirect(config.client_url + '/?token=' + 
+      `JWT ${generateToken(userInfo)}`)
     }
 
     let githubUser = new Github({
@@ -55,10 +58,13 @@ export const register = (req, res, next) => {
       if (err)
         return next(err)
 
-      res.status(201).send({
-        id_token: 'JWT ' + generateToken(userScheme),
-        user: userScheme
-      })
+      const userInfo = setUserInfo(req.user)
+      res.redirect(config.client_url + '/?token=' + 
+      `JWT ${generateToken(userInfo)}`)
+      // res.status(201).send({
+      //   id_token: 'JWT ' + generateToken(userScheme),
+      //   user: userScheme
+      // })
     })
   })
 }
@@ -66,9 +72,12 @@ export const register = (req, res, next) => {
 export const login = (req, res) => {
   const userInfo = setUserInfo(req.user)
 
-  res.status(200).json({
-    token: `JWT ${generateToken(userInfo)}`,
-    user: userInfo
-  })
+  res.redirect(config.client_url + '/?token=' + 
+  `JWT ${generateToken(userInfo)}`)
+
+  // res.status(200).json({
+  //   token: `JWT ${generateToken(userInfo)}`,
+  //   user: userInfo
+  // })
 }
 
