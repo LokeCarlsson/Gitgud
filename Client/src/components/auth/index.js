@@ -1,7 +1,7 @@
 export default {
   user: {
     authenticated: localStorage.getItem('token') || false,
-    username: 'Gitgud'
+    username: ''
   },
   login (token) {
     localStorage.setItem('token', token)
@@ -11,7 +11,7 @@ export default {
     localStorage.removeItem('token')
     localStorage.removeItem('profile')
     this.user.authenticated = false
-    this.user.username = 'Gitgud'
+    this.user.username = this.userInfo.displayName
   },
   checkAuth () {
     var jwt = localStorage.getItem('token')
