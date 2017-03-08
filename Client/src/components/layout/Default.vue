@@ -29,7 +29,12 @@
       <div class="list no-border platform-delimiter">
         <!--Authenticated-->
         <div v-if="user.authenticated">
-        <img class="userAvatar" :src="userInfo.avatarUrl">
+          <img class="userAvatar" :src="userInfo.avatarUrl">
+          <h5 class="userDisplayName">{{ userInfo.displayName }}</h5>
+          <p class="userBio">{{ userInfo.bio }}</p>
+
+
+          <hr>
           <q-drawer-link icon="account_box" to="/about">
             My account
           </q-drawer-link>
@@ -129,11 +134,20 @@
   .userAvatar {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    margin-left: 25%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
   }
 
+  .userDisplayName {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .userBio {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 </style>

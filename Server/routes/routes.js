@@ -48,6 +48,11 @@ router.get('/', (req, res) => {
   res.status(200).send('Welcome to gitgud')
 })
 
+router.post('/webhook', (req, res) => {
+  console.log(req.body)
+  res.status(200).send('Yeeey, nice work pal!')
+})
+
 
 function ensureAuthenticated(req, res, next) {
   console.log('Am i logged in? ', req.isAuthenticated())

@@ -25,7 +25,6 @@
     "dotenv": "^4.0.0",
     "errorhandler": "^1.5.0",
     "express": "^4.14.1",
-    "express-github-webhook": "^1.0.5",
     "express-jwt": "^5.1.0",
     "express-partials": "^0.3.0",
     "jsonwebtoken": "^7.2.1",
