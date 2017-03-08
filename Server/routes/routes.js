@@ -37,7 +37,6 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/account', requireAuth, (req, res) => {
-  console.log(req)
   res.status(200).send(req.user)
 })
 
