@@ -28,13 +28,15 @@
 
       <div class="list no-border platform-delimiter">
         <!--Authenticated-->
-        <q-drawer-link v-if="user.authenticated" icon="account_box" to="/about">
-          My account
-        </q-drawer-link>
-        <q-drawer-link v-if="user.authenticated" icon="settings" to="/chuck">
-          Settings
-        </q-drawer-link>
-
+        <div v-if="user.authenticated">
+        <img class="userAvatar" :src="userInfo.avatarUrl">
+          <q-drawer-link icon="account_box" to="/about">
+            My account
+          </q-drawer-link>
+          <q-drawer-link icon="settings" to="/chuck">
+            Settings
+          </q-drawer-link>
+        </div>
         <!--Not authenticated-->
         <q-drawer-link v-if="!user.authenticated" icon="perm_identity" to="/login">
           Login
@@ -84,21 +86,28 @@
   export default {
     data () {
       return {
-        user: auth.user
+        user: auth.user,
+        userInfo: ''
       }
     },
     mounted () {
-      auth.login(this.$root.$route.query.token)
-      this.getAccount()
+      if (this.$root.$route.query.token || !auth.checkAuth()) {
+        auth.login(this.$root.$route.query.token)
+      }
+      if (auth.checkAuth()) {
+        this.getAccount()
+      }
     },
     methods: {
       logout () {
         auth.logout()
       },
       getAccount () {
-        this.axios.get('/account')
-        .then((data) => {
-          console.log('data ', data)
+        this.axios.get('/account', { headers: auth.getAuthHeader() })
+        .then((payload) => {
+          this.userInfo = payload.data
+          this.user.username = payload.data.username
+          console.log(payload.data)
         })
       }
     }
@@ -115,6 +124,16 @@
 
   #messages-container {
     margin-top: 20px;
+  }
+
+  .userAvatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin-left: 25%;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
 </style>
