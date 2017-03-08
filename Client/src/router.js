@@ -9,7 +9,7 @@ import PaymentRequiredView from './components/error/402.vue'
 import HomeView from './components/layout/Default.vue'
 import Chuck from './components/test/Chuck.vue'
 import Start from './components/info/Start.vue'
-import AboutView from './components/info/About.vue'
+import AboutView from './components/info/Account.vue'
 import SecretQuote from './components/auth/SecretQuote.vue'
 import Signup from './components/auth/Signup.vue'
 import Login from './components/auth/Login.vue'
@@ -36,10 +36,10 @@ export default new VueRouter({
           description: 'Chuck quotes'
         },
         {
-          path: '/about',
+          path: '/account',
           component: AboutView,
-          name: 'About',
-          description: 'About, info and stuff'
+          name: 'Account',
+          description: 'Account, info and stuff'
         },
         {
           path: '/secretquote',
