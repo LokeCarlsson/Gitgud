@@ -46,9 +46,7 @@ const jwtOptions = {
 }
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  console.log('payload', payload._id)
-  githubUser.findById(payload._id, (err, user) => {
-    console.log('pleowekewif')
+  githubUser.findOne({ username: payload.username }, (err, user) => {
     if (err)
       return done(err, false)
 
