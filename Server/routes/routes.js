@@ -12,9 +12,6 @@ export const router = express.Router()
 
 router.get('/register', register)
 router.get('/login', requireLogin, login)
-// router.get('/login', (req, res) => {
-//   res.redirect('/auth/github')
-// })
 
 router.get('/auth/github', requireLogin, (req, res) => {
   res.status(200).send("Should not display this!!")
@@ -28,7 +25,6 @@ router.get('/auth/github/callback', passport.authenticate('github',
 { failureRedirect: '/fail' }), 
 (req, res, next) => {
   register(req, res, next)
-  // res.redirect('/account')
 })
 
 router.get('/logout', (req, res) => {
@@ -44,15 +40,14 @@ router.get('/fail', (req, res) => {
   res.status(200).send("Hahha, you failed!! /fail")
 })
 
+router.post('/webhook', (req, res) => {
+  console.log('hoook inc - ', req.body)
+  res.status(200).send('Thumbs up!!')
+})
+
 router.get('/', (req, res) => {
   res.status(200).send('Welcome to gitgud')
 })
-
-router.post('/webhook', (req, res) => {
-  console.log(req.body)
-  res.status(200).send('Yeeey, nice work pal!')
-})
-
 
 function ensureAuthenticated(req, res, next) {
   console.log('Am i logged in? ', req.isAuthenticated())
