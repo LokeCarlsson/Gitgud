@@ -97,7 +97,7 @@
     },
     mounted () {
       if (this.$root.$route.query.token || !auth.checkToken()) {
-        auth.login(this.$root.$route.query.token)
+        auth.login(this.$root.$route.query)
       }
       if (auth.checkToken()) {
         this.getAccount()
@@ -112,7 +112,6 @@
         .then((payload) => {
           if (payload.data) {
             this.userInfo = payload.data
-            this.user.username = payload.data.username
           }
         })
         .catch((e) => {
