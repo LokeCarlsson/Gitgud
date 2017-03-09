@@ -21,6 +21,12 @@
         error: '',
         user: auth.user
       }
+    },
+    mounted () {
+      console.log(this.$root.$route.query.username)
+      if (this.user.authenticated) {
+        this.$router.push('/')
+      }
     }
   }
 
