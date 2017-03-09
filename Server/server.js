@@ -1,4 +1,3 @@
-import githubwebhook from 'express-github-webhook'
 import methodOverride from 'method-override'
 import partials from 'express-partials'
 import bodyParser from 'body-parser'

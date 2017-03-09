@@ -96,10 +96,10 @@
       }
     },
     mounted () {
-      if (this.$root.$route.query.token || !auth.checkAuth()) {
+      if (this.$root.$route.query.token || !auth.checkToken()) {
         auth.login(this.$root.$route.query.token)
       }
-      if (auth.checkAuth()) {
+      if (auth.checkToken()) {
         this.getAccount()
       }
     },
@@ -110,9 +110,14 @@
       getAccount () {
         this.axios.get('/account', { headers: auth.getAuthHeader() })
         .then((payload) => {
-          this.userInfo = payload.data
-          this.user.username = payload.data.username
-          console.log(payload.data)
+          if (payload.data) {
+            this.userInfo = payload.data
+            this.user.username = payload.data.username
+          }
+        })
+        .catch((e) => {
+          auth.logout()
+          console.log(e)
         })
       }
     }
