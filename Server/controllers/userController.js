@@ -42,8 +42,8 @@ export const register = (req, res, next) => {
       //   user: userScheme
       // })
       const userInfo = setUserInfo(req.user)
-      res.redirect(config.client_url + '/?token=' + 
-      `JWT ${generateToken(userInfo)}`)
+      res.redirect(config.client_url + '/login/?username=' + username +
+      '&token=' + `JWT ${generateToken(userInfo)}`)
     }
 
     let githubUser = new Github({
@@ -59,7 +59,7 @@ export const register = (req, res, next) => {
         return next(err)
 
       const userInfo = setUserInfo(req.user)
-      res.redirect(config.client_url + '/?token=' + 
+      res.redirect(config.client_url + '/login/?token=' + 
       `JWT ${generateToken(userInfo)}`)
       // res.status(201).send({
       //   id_token: 'JWT ' + generateToken(userScheme),
