@@ -1,17 +1,17 @@
 export default {
   user: {
     authenticated: localStorage.getItem('token') || false,
-    username: ''
+    username: localStorage.getItem('username')
   },
-  login (token) {
-    localStorage.setItem('token', token)
+  login (query) {
+    localStorage.setItem('token', query.token)
+    localStorage.setItem('username', query.username)
     this.user.authenticated = true
   },
   logout () {
     localStorage.removeItem('token')
-    localStorage.removeItem('profile')
+    localStorage.removeItem('username')
     this.user.authenticated = false
-    this.user.username = this.userInfo.username
   },
   checkAuth () {
     this.axios.get('/account', { headers: this.getAuthHeader() })
