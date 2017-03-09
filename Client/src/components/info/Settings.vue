@@ -1,21 +1,11 @@
 <template>
-  <div id='account'>
+  <div id='settings'>
     <h4>
-      {{ userInfo.displayName }}
+      Settings!
     </h4>
     <p>
-      ID: {{ userInfo._id }}
+
     </p>
-    <p>
-       <a :href="userInfo.profileUrl">{{ userInfo.username }}</a>
-    </p>
-    <p>
-      {{ userInfo.updatedAt }}
-    </p>
-    <p>
-      {{ userInfo }}
-    </p>
-    <button @click="getOrgs()">hej</button>
   </div>
 </template>
 
@@ -29,7 +19,12 @@
       }
     },
     mounted () {
-      this.getAccount()
+      if (this.$root.$route.query.token || !auth.checkAuth()) {
+        auth.login(this.$root.$route.query.token)
+      }
+      if (auth.checkAuth()) {
+        this.getAccount()
+      }
     },
     methods: {
       logout () {
@@ -39,12 +34,8 @@
         this.axios.get('/account', { headers: auth.getAuthHeader() })
         .then((payload) => {
           this.userInfo = payload.data
-        })
-      },
-      getOrgs () {
-        this.axios.get('/orgs', { headers: auth.getAuthHeader() })
-        .then((payload) => {
-          console.log(payload)
+          this.user.username = payload.data.username
+          console.log(payload.data)
         })
       }
     }

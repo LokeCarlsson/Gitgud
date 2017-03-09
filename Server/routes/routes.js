@@ -1,12 +1,12 @@
 import { register, login } from '../controllers/userController'
-import { save } from '../controllers/githubController'
+import { save, getOrgs } from '../controllers/githubController'
 import express from 'express'
 import passport from 'passport'
 import passportService from '../config/passport'
 import user from '../models/userModel'
 
 const requireAuth = passport.authenticate('jwt', { session: true })
-const requireLogin = passport.authenticate('github', { scope: [ 'user:email' ] })
+const requireLogin = passport.authenticate('github', { scope: [ 'user', 'admin:org_hook', 'read:org' ] })
 
 export const router = express.Router()
 
@@ -24,6 +24,7 @@ router.get('/auth/user', (req, res) => {
 router.get('/auth/github/callback', passport.authenticate('github', 
 { failureRedirect: '/fail' }), 
 (req, res, next) => {
+  console.log(req.query.code)
   register(req, res, next)
 })
 
@@ -34,6 +35,10 @@ router.get('/logout', (req, res) => {
 
 router.get('/account', requireAuth, (req, res) => {
   res.status(200).send(req.user)
+})
+
+router.get('/orgs', requireAuth, (req, res) => {
+  res.status(200).send(save(req))
 })
 
 router.get('/fail', (req, res) => {
@@ -48,9 +53,3 @@ router.post('/webhook', (req, res) => {
 router.get('/', (req, res) => {
   res.status(200).send('Welcome to gitgud')
 })
-
-function ensureAuthenticated(req, res, next) {
-  console.log('Am i logged in? ', req.isAuthenticated())
-  if (req.isAuthenticated()) { return next() }
-  res.redirect('/fail')
-}

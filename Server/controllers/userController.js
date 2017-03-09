@@ -28,6 +28,7 @@ export const register = (req, res, next) => {
   const avatarUrl = req.user._json.avatar_url
   const bio = req.user._json.bio
 
+
   const userScheme = setUserInfo(req.user)
 
   Github.findOne({

@@ -35,10 +35,10 @@
 
 
           <hr>
-          <q-drawer-link icon="account_box" to="/about">
+          <q-drawer-link icon="account_box" to="/account">
             My account
           </q-drawer-link>
-          <q-drawer-link icon="settings" to="/chuck">
+          <q-drawer-link icon="settings" to="/settings">
             Settings
           </q-drawer-link>
         </div>
