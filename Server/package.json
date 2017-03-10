@@ -36,7 +36,8 @@
     "passport": "^0.3.2",
     "passport-github2": "^0.1.10",
     "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
