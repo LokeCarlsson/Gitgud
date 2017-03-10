@@ -15,7 +15,7 @@
     <q-tabs slot="navigation" class="justified">
       <q-tab icon="home" route="/" exact replace>Home</q-tab>
       <q-tab v-show="authenticated" icon="group" route="/timeline/orgs" exact replace>Org timeline</q-tab>
-      <q-tab v-show="authenticated" icon="face" route="/timeline/user" exact replace>User timeline</q-tab>
+      <q-tab v-show="authenticated" icon="person" route="/timeline/user" exact replace>User timeline</q-tab>
     </q-tabs>
 
     <q-drawer ref="leftDrawer">
