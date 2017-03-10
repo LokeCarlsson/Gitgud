@@ -7,10 +7,10 @@ import PaymentRequiredView from '../components/error/402.vue'
 
 // Routing files
 import HomeView from '../components/layout/Default.vue'
-import Chuck from '../components/test/Chuck.vue'
+import User from '../components/timelines/User.vue'
+import Orgs from '../components/timelines/Orgs.vue'
 import Start from '../components/info/Start.vue'
 import AboutView from '../components/info/Account.vue'
-import SecretQuote from '../components/auth/SecretQuote.vue'
 import Signup from '../components/auth/Signup.vue'
 import Login from '../components/auth/Login.vue'
 
@@ -30,10 +30,10 @@ export default new VueRouter({
           description: 'Testing stuff'
         },
         {
-          path: '/chuck',
-          component: Chuck,
-          name: 'Chuck',
-          description: 'Chuck quotes'
+          path: '/timeline/orgs',
+          component: Orgs,
+          name: 'Orgs',
+          description: 'Timeline for organizations'
         },
         {
           path: '/account',
@@ -42,10 +42,10 @@ export default new VueRouter({
           description: 'Account, info and stuff'
         },
         {
-          path: '/secretquote',
-          component: SecretQuote,
-          name: 'SecretQuote',
-          description: 'Secret Quote'
+          path: '/timeline/user',
+          component: User,
+          name: 'User',
+          description: 'Timeline for user'
         },
         {
           path: '/login',
