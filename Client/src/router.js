@@ -39,7 +39,8 @@ export default new VueRouter({
           path: '/account',
           component: AboutView,
           name: 'Account',
-          description: 'Account, info and stuff'
+          description: 'Account, info and stuff',
+          auth: true
         },
         {
           path: '/secretquote',
