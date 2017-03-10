@@ -8,13 +8,19 @@ export default new Vuex.Store({
   state: {
     token: null,
     username: '',
-    userInfo: {},
+    avatarUrl: '',
+    bio: '',
+    displayName: '',
+    profileUrl: '',
     authenticated: false
   },
   getters: {
     token: state => state.token,
     username: state => state.username,
-    userInfo: state => state.userInfo,
+    avatarUrl: state => state.avatarUrl,
+    bio: state => state.bio,
+    displayName: state => state.displayName,
+    profileUrl: state => state.profileUrl,
     authenticated: state => state.authenticated
   },
   mutations: {
@@ -37,30 +43,29 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
     },
     setUserInfo (state, userInfo) {
-      state.userInfo = userInfo
+      state.avatarUrl = userInfo.avatarUrl
+      state.bio = 'userInfo.bio'
+      state.displayName = userInfo.displayName
+      state.profileUrl = userInfo.profileUrl
     },
     removeUserInfo (state) {
-      state.userInfo = null
+      state.avatarUrl = ''
+      state.bio = ''
+      state.displayName = ''
+      state.profileUrl = ''
     }
   },
   actions: {
-    setUsername ({ commit }, username) {
-      commit('setUsername', username)
+    login ({ commit }, payload) {
+      commit('setUsername', payload.username)
+      commit('setToken', payload.token)
     },
-    removeUsername ({ commit }) {
+    logout ({ commit }) {
       commit('removeUsername')
-    },
-    setToken ({ commit }, token) {
-      commit('setToken', token)
-    },
-    removeToken ({ commit }) {
       commit('removeToken')
     },
-    setUserInfo ({ commit }, header) {
-      Vue.axios.get('/account', { headers: header })
-      .then((payload) => {
-        commit('setUserInfo', payload.data)
-      })
+    setUserInfo ({ commit }, payload) {
+      commit('setUserInfo', payload)
     },
     removeUserInfo ({ commit }) {
       commit('removeUserInfo')

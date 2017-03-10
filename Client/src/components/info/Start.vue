@@ -43,7 +43,6 @@
 
 <script>
   import store from '../../store'
-  // import auth from '../auth/index.js'
   export default {
     data () {
       return {
@@ -53,11 +52,11 @@
     },
     mounted () {
       // this.axios.get('https://api.github.com/users/' + localStorage.getItem('username') + '/events')
-      this.axios.get('https://api.github.com/orgs/wp15/events')
-        .then((payload) => {
-          // console.log(payload)
-          this.github = payload.data
-        })
+      // this.axios.get('https://api.github.com/orgs/wp15/events')
+      //   .then((payload) => {
+      //     // console.log(payload)
+      //     this.github = payload.data
+      //   })
     }
   }
 

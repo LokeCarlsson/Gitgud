@@ -21,17 +21,17 @@
     <q-drawer ref="leftDrawer">
       <div class="toolbar">
         <div v-show="authenticated" class="list-label">Welcome,</div>
-        <q-toolbar-title :key="user.username" :padding="1">
-          {{ user.username }}
+        <q-toolbar-title :key="username" :padding="1">
+          {{ username }}
         </q-toolbar-title>
       </div>
 
       <div class="list no-border platform-delimiter">
         <!--Authenticated-->
         <div v-show="authenticated">
-          <img class="userAvatar" :src="userInfo.avatarUrl">
-          <h5 class="userDisplayName">{{ userInfo.displayName }}</h5>
-          <p class="userBio">{{ userInfo.bio }}</p>
+          <img class="userAvatar" :src="avatarUrl">
+          <h5 class="userDisplayName">{{ displayName }}</h5>
+          <p class="userBio">{{ bio }}</p>
 
 
           <hr>
@@ -49,9 +49,9 @@
         <hr>
 
         <!--Authenticated-->
-        <div v-if="authenticated" @click="logout()" class="item item-link">
-          <i class="item-primary" @click="logout()">power_settings_new</i>
-          <div class="item-content">Sign out</div>
+        <div v-if="authenticated" class="item item-link">
+          <i class="item-primary">power_settings_new</i>
+          <div class="item-content" @click="logout()">Sign out</div>
         </div>
       </div>
     </q-drawer>
@@ -92,19 +92,38 @@
   export default {
     data () {
       return {
-        user: '',
-        userInfo: store.getters.userInfo,
-        authenticated: store.getters.authenticated
+        authenticated: store.getters.authenticated,
+        username: store.getters.username,
+        displayName: '',
+        avatarUrl: '',
+        bio: ''
       }
     },
     mounted () {
       if (this.$root.$route.query.token !== undefined) {
         auth.login(this.$root.$route.query)
       }
+
+      this.username = store.getters.username
+      this.authenticated = store.getters.authenticated
+
+      if (this.authenticated) {
+        this.axios.get('/account', { headers: auth.getAuthHeader() })
+        .then((payload) => {
+          this.avatarUrl = payload.data.avatarUrl
+          this.displayName = payload.data.displayName
+          this.bio = payload.data.bio
+        })
+      }
     },
     methods: {
       logout () {
         auth.logout()
+        this.authenticated = false
+        this.username = ''
+        this.displayName = ''
+        this.avatarUrl = ''
+        this.bio = ''
       }
     }
   }

@@ -1,14 +1,14 @@
 import store from '../../store'
+import router from '../../router/router'
+
 export default {
   login (query) {
-    store.dispatch('setToken', query.token)
-    store.dispatch('setUsername', query.username)
-    store.dispatch('setUserInfo', this.getAuthHeader())
-    this.$router.push('/')
+    store.dispatch('login', {token: query.token, username: query.username})
+    router.push('/')
   },
   logout () {
-    store.dispatch('removeToken')
-    store.dispatch('removeUsername')
+    router.push('/')
+    store.dispatch('logout')
   },
   getAuthHeader () {
     return {
