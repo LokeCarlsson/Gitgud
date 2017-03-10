@@ -42,19 +42,20 @@
 </template>
 
 <script>
-  import auth from '../auth/index.js'
+  import store from '../../store'
+  // import auth from '../auth/index.js'
   export default {
     data () {
       return {
         github: [],
-        authenticated: auth.user.authenticated
+        authenticated: store.getters.authenticated
       }
     },
     mounted () {
       // this.axios.get('https://api.github.com/users/' + localStorage.getItem('username') + '/events')
       this.axios.get('https://api.github.com/orgs/wp15/events')
         .then((payload) => {
-          console.log(payload)
+          // console.log(payload)
           this.github = payload.data
         })
     }

@@ -32,9 +32,6 @@
       this.getAccount()
     },
     methods: {
-      logout () {
-        auth.logout()
-      },
       getAccount () {
         this.axios.get('/account', { headers: auth.getAuthHeader() })
         .then((payload) => {

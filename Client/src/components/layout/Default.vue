@@ -15,12 +15,12 @@
     <q-tabs slot="navigation" class="justified">
       <q-tab icon="home" route="/" exact replace>Home</q-tab>
       <q-tab icon="library_books" route="/chuck" exact replace>Chuck</q-tab>
-      <q-tab v-if="user.authenticated" icon="library_add" route="/secretquote" replace>Secret Quote</q-tab>
+      <q-tab v-show="authenticated" icon="library_add" route="/secretquote" replace>Secret Quote</q-tab>
     </q-tabs>
 
     <q-drawer ref="leftDrawer">
       <div class="toolbar">
-        <div v-if="user.authenticated" class="list-label">Welcome,</div>
+        <div v-show="authenticated" class="list-label">Welcome,</div>
         <q-toolbar-title :key="user.username" :padding="1">
           {{ user.username }}
         </q-toolbar-title>
@@ -28,7 +28,7 @@
 
       <div class="list no-border platform-delimiter">
         <!--Authenticated-->
-        <div v-if="user.authenticated">
+        <div v-show="authenticated">
           <img class="userAvatar" :src="userInfo.avatarUrl">
           <h5 class="userDisplayName">{{ userInfo.displayName }}</h5>
           <p class="userBio">{{ userInfo.bio }}</p>
@@ -43,13 +43,13 @@
           </q-drawer-link>
         </div>
         <!--Not authenticated-->
-        <q-drawer-link v-if="!user.authenticated" icon="perm_identity" to="/login">
+        <q-drawer-link v-show="!authenticated" icon="perm_identity" to="/login">
           Login
         </q-drawer-link>
         <hr>
 
         <!--Authenticated-->
-        <div v-if="user.authenticated" @click="logout()" class="item item-link">
+        <div v-if="authenticated" @click="logout()" class="item item-link">
           <i class="item-primary" @click="logout()">power_settings_new</i>
           <div class="item-content">Sign out</div>
         </div>
@@ -87,38 +87,24 @@
 </template>
 
 <script>
-  import auth from '../auth/index.js'
+  import store from '../../store'
+  import auth from '../auth'
   export default {
     data () {
       return {
-        user: auth.user,
-        userInfo: ''
+        user: '',
+        userInfo: store.getters.userInfo,
+        authenticated: store.getters.authenticated
       }
     },
     mounted () {
-      if (this.$root.$route.query.token || !auth.checkToken()) {
+      if (this.$root.$route.query.token !== undefined) {
         auth.login(this.$root.$route.query)
-      }
-      console.log('True? ', auth.isLoggedIn)
-      if (auth.checkToken()) {
-        this.getAccount()
       }
     },
     methods: {
       logout () {
         auth.logout()
-      },
-      getAccount () {
-        this.axios.get('/account', { headers: auth.getAuthHeader() })
-        .then((payload) => {
-          if (payload.data) {
-            this.userInfo = payload.data
-          }
-        })
-        .catch((e) => {
-          auth.logout()
-          console.log(e)
-        })
       }
     }
   }
@@ -126,16 +112,6 @@
 </script>
 
 <style>
-  #bot {
-    max-width: 750px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #messages-container {
-    margin-top: 20px;
-  }
-
   .userAvatar {
     width: 150px;
     height: 150px;

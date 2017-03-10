@@ -1,54 +1,49 @@
 import store from '../../store'
 export default {
-  user: {
-    authenticated: localStorage.getItem('token') || false,
-    username: localStorage.getItem('username')
-  },
   login (query) {
-    localStorage.setItem('token', query.token)
-    localStorage.setItem('username', query.username)
-    store.dispatch('SET_TOKEN', query.token)
-    store.dispatch('SET_USER', query.username)
+    store.dispatch('setToken', query.token)
+    store.dispatch('setUsername', query.username)
+    store.dispatch('setUserInfo', this.getAuthHeader())
+    this.$router.push('/')
   },
   logout () {
-    localStorage.removeItem('token')
-    localStorage.removeItem('username')
-    store.dispatch('REMOVE_TOKEN')
-    store.dispatch('REMOVE_USER')
+    store.dispatch('removeToken')
+    store.dispatch('removeUsername')
   },
   checkAuth () {
-    this.axios.get('/account', { headers: this.getAuthHeader() })
-      .then((payload) => {
-        this.user.username = payload.data.username
-        this.user.authenticated = true
-        return true
-      })
-      .catch((e) => {
-        this.user.authenticated = false
-        console.log(e)
-        this.logout()
-        return false
-      })
+    // this.axios.get('/account', { headers: this.getAuthHeader() })
+    //   .then((payload) => {
+    //     this.user.username = payload.data.username
+    //     this.user.authenticated = true
+    //     return true
+    //   })
+    //   .catch((e) => {
+    //     this.user.authenticated = false
+    //     console.log(e)
+    //     this.logout()
+    //     return false
+    //   })
   },
   checkToken () {
-    const jwt = localStorage.getItem('token')
-    if (jwt !== undefined && jwt !== null && jwt.length > 0) {
-      this.user.authenticated = true
-      return true
-    }
-    else {
-      this.user.authenticated = false
-      return false
-    }
+    console.log('logged in? ', store.getters.authenticated)
+    // const jwt = localStorage.getItem('token')
+    // if (jwt !== undefined && jwt !== null && jwt.length > 0) {
+    //   this.user.authenticated = true
+    //   return true
+    // }
+    // else {
+    //   this.user.authenticated = false
+    //   return false
+    // }
   },
   isLoggedIn () {
-    return store.state.auth.authenticated
+    return store.getters.authenticated
   },
   getToken () {
-    return store.state.auth.token
+    return store.getters.token
   },
   getUser () {
-    return store.state.auth.user
+    return store.getters.user
   },
   getAuthHeader () {
     return {
