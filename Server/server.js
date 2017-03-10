@@ -7,13 +7,15 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
 import http from 'http'
+import SocketIO from 'socket.io'
 
 import headers from './middlewares/headers'
 import { router } from './routes/routes'
 import config from './config/main'
 
 let app = express()
-app.server = http.createServer(app)
+let server = http.Server(app)
+let io = new SocketIO(server)
 
 mongoose.connect(config.database)
 
@@ -31,7 +33,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.use(router)
 
-app.server.listen(config.port || 3000, () => {
+app.listen(config.port || 3000, () => {
 	console.log('Server listening on port ', config.port)
 })
 
