@@ -99,6 +99,7 @@
       if (this.$root.$route.query.token || !auth.checkToken()) {
         auth.login(this.$root.$route.query)
       }
+      console.log('True? ', auth.isLoggedIn)
       if (auth.checkToken()) {
         this.getAccount()
       }
