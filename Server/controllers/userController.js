@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import User from '../models/userModel'
 import Github from '../models/githubModel'
 import config from '../config/main'
 import passport from 'passport'
@@ -27,7 +26,7 @@ export const register = (req, res, next) => {
   const profileUrl = req.user.profileUrl
   const avatarUrl = req.user._json.avatar_url
   const bio = req.user._json.bio
-
+  const githubToken = req.query.code
 
   const userScheme = setUserInfo(req.user)
 
@@ -38,10 +37,6 @@ export const register = (req, res, next) => {
       return next(err)
 
     if (existingUser) {
-      // res.status(201).send({
-      //   id_token: 'JWT ' + generateToken(userScheme),
-      //   user: userScheme
-      // })
       const userInfo = setUserInfo(req.user)
       res.redirect(config.client_url + '/login/?username=' + username +
       '&token=' + `JWT ${generateToken(userInfo)}`)
@@ -52,7 +47,8 @@ export const register = (req, res, next) => {
       username: username,
       profileUrl: profileUrl,
       avatarUrl: avatarUrl,
-      bio: bio
+      bio: bio,
+      githubToken: githubToken
     })
 
     githubUser.save((err, user) => {
@@ -60,12 +56,8 @@ export const register = (req, res, next) => {
         return next(err)
 
       const userInfo = setUserInfo(req.user)
-      res.redirect(config.client_url + '/login/?token=' + 
-      `JWT ${generateToken(userInfo)}`)
-      // res.status(201).send({
-      //   id_token: 'JWT ' + generateToken(userScheme),
-      //   user: userScheme
-      // })
+      res.redirect(config.client_url + '/login/?username=' + username +
+      '&token=' + `JWT ${generateToken(userInfo)}`)
     })
   })
 }

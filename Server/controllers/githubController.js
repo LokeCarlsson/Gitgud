@@ -1,4 +1,3 @@
-import user from '../models/userModel'
 import axios from 'axios'
 
 export const save = (request) => {

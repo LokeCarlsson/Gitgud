@@ -3,7 +3,6 @@ import { save, getOrgs } from '../controllers/githubController'
 import express from 'express'
 import passport from 'passport'
 import passportService from '../config/passport'
-import user from '../models/userModel'
 
 const requireAuth = passport.authenticate('jwt', { session: true })
 const requireLogin = passport.authenticate('github', { scope: [ 'user', 'admin:org_hook', 'read:org' ] })
@@ -24,7 +23,6 @@ router.get('/auth/user', (req, res) => {
 router.get('/auth/github/callback', passport.authenticate('github', 
 { failureRedirect: '/fail' }), 
 (req, res, next) => {
-  console.log(req.query.code)
   register(req, res, next)
 })
 

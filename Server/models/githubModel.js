@@ -20,6 +20,9 @@ const githubSchema = new Schema({
   },
   bio: {
     type: String
+  },
+  githubToken: {
+    type: String
   }
 },
 {
