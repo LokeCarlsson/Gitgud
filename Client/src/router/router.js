@@ -10,7 +10,8 @@ import HomeView from '../components/layout/Default.vue'
 import User from '../components/timelines/User.vue'
 import Orgs from '../components/timelines/Orgs.vue'
 import Start from '../components/info/Start.vue'
-import AboutView from '../components/info/Account.vue'
+import Account from '../components/info/Account.vue'
+import Settings from '../components/info/Settings.vue'
 import Signup from '../components/auth/Signup.vue'
 import Login from '../components/auth/Login.vue'
 
@@ -37,9 +38,15 @@ export default new VueRouter({
         },
         {
           path: '/account',
-          component: AboutView,
+          component: Account,
           name: 'Account',
           description: 'Account, info and stuff'
+        },
+        {
+          path: '/settings',
+          component: Settings,
+          name: 'Settings',
+          description: 'Settings and stuff'
         },
         {
           path: '/timeline/user',
