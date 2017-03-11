@@ -1,11 +1,46 @@
 <template>
   <div id='settings'>
-    <h4>
-      Settings!
-    </h4>
-    <p>
+      <div v-if="orgs" class="card" style="margin-top: 25px;">
+        <div class="card-title">
+          Organizations
+        </div>
+        <div class="list item-delimiter" v-for="org in orgs">
+          <q-collapsible icon="explore" :label="org.login">
+              <div class="list">
+                hej
+                <label class="item">
+                <div class="item-primary">
+                  <q-checkbox v-model="commits"></q-checkbox>
+                </div>
+                <div class="item-content">
+                  Commits
+                </div>
+              </label>
+              <label class="item">
+                <div class="item-primary">
+                  <q-checkbox v-model="pushes"></q-checkbox>
+                </div>
+                <div class="item-content">
+                  Pushes
+                </div>
+              </label>
+              <label class="item">
+                <div class="item-primary">
+                  <q-checkbox v-model="releases"></q-checkbox>
+                </div>
+                <div class="item-content">
+                  Releases
+                </div>
+              </label>
+            </div>
+          </q-collapsible>
+        </div>
+      </div>
+      <div v-else>
+        <spinner color="#2196F3" name="dots" class="spinner"></spinner>
+      </div>
+    </div>
 
-    </p>
   </div>
 </template>
 
@@ -14,28 +49,35 @@
   export default {
     data () {
       return {
-        user: auth.user,
-        userInfo: ''
+        userInfo: '',
+        orgs: '',
+        repos: '',
+        commits: false,
+        pushes: false,
+        releases: false
       }
     },
     mounted () {
-      if (this.$root.$route.query.token || !auth.checkAuth()) {
-        auth.login(this.$root.$route.query.token)
-      }
-      if (auth.checkAuth()) {
-        this.getAccount()
-      }
+      this.getAccount()
+      this.getOrgs()
     },
     methods: {
-      logout () {
-        auth.logout()
-      },
       getAccount () {
         this.axios.get('/account', { headers: auth.getAuthHeader() })
         .then((payload) => {
           this.userInfo = payload.data
-          this.user.username = payload.data.username
-          console.log(payload.data)
+        })
+      },
+      getOrgs () {
+        this.axios.get('/orgs', { headers: auth.getAuthHeader() })
+        .then((payload) => {
+          this.orgs = payload.data
+        })
+      },
+      getRepos (url) {
+        this.axios.get(url, { headers: auth.getAuthHeader() })
+        .then((payload) => {
+          this.repos = payload.data
         })
       }
     }
@@ -43,6 +85,9 @@
 </script>
 
 <style>
-
-
+  .spinner {
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+  }
 </style>
