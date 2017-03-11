@@ -36,7 +36,9 @@ router.get('/account', requireAuth, (req, res) => {
 })
 
 router.get('/orgs', requireAuth, (req, res) => {
-  res.status(200).send(save(req))
+  save(req, res)
+    .then(data => res.status(200).json(data))
+    .catch(error => res.status(400).json(error))
 })
 
 router.get('/fail', (req, res) => {

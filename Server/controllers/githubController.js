@@ -1,19 +1,19 @@
 import axios from 'axios'
 
-export const save = (request) => {
-  // console.log(request.user)
-  console.log('my code: ', request.query.code)
-  axios.get('https://api.github.com/authorizations', {
-    params: {
-      Authorization : '8a940109eb8d033ae12b'
+export const save = (request, res) => {
+  return axios.get('https://api.github.com/user/orgs', {
+    headers: {
+      Authorization: 'token ' + request.user.githubToken,
+      'User-Agent': 'Gitgud'
     }
   })
-  .then(function (response) {
-    console.log(response)
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
+    .then(function (response) {
+      return response.data
+    })
+    .catch(function (error) {
+      return error
+    })
+  
 
 
   // const query = {"username": request.user.username}

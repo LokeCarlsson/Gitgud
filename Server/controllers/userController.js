@@ -26,7 +26,9 @@ export const register = (req, res, next) => {
   const profileUrl = req.user.profileUrl
   const avatarUrl = req.user._json.avatar_url
   const bio = req.user._json.bio
-  const githubToken = req.query.code
+  const githubToken = req.user.token
+
+  console.log('min token: ', req.user.token)
 
   const userScheme = setUserInfo(req.user)
 

@@ -64,6 +64,7 @@ const githubOptions = {
 }
 
 const githubLogin = new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
+  profile.token = accessToken
   return done(null, profile)
 })
 
