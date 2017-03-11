@@ -53,7 +53,6 @@
     mounted () {
       this.axios.get('https://api.github.com/users/' + store.getters.username + '/events')
         .then((payload) => {
-          // console.log(payload)
           this.github = payload.data
         })
     }

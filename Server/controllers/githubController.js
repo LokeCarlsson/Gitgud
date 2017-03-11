@@ -1,18 +1,7 @@
 import axios from 'axios'
 
-export const save = (request, res) => {
-  return axios.get('https://api.github.com/user/orgs', {
-    headers: {
-      Authorization: 'token ' + request.user.githubToken,
-      'User-Agent': 'Gitgud'
-    }
-  })
-    .then(function (response) {
-      return response.data
-    })
-    .catch(function (error) {
-      return error
-    })
+export const save = () => {
+  
   
 
 
@@ -28,10 +17,17 @@ export const save = (request, res) => {
   // })
 }
 
-export const getOrgs = () => {
-  return [
-    'hej',
-    'imaorg',
-    'osvosv'
-  ]
+export const getOrgs = (request, res) => {
+  return axios.get('https://api.github.com/user/orgs', {
+    headers: {
+      Authorization: 'token ' + request.user.githubToken,
+      'User-Agent': 'Gitgud'
+    }
+  })
+    .then(function (response) {
+      return response.data
+    })
+    .catch(function (error) {
+      return error
+    })
 }

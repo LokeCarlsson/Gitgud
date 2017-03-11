@@ -18,23 +18,22 @@
     <button @click="getOrgs()">hej</button>
     <br>
 
-
-      <div v-show="orgs" class="card">
+      <div v-show="orgs" class="card" style="margin-top: 25px;">
         <div class="card-title">
           Organizations
         </div>
-        <div class="list bordered inner-delimiter highlight">
-          <div class="item" v-for="org in orgs">
-            <i>mail</i>
-            <div class="item-content">
-              <div class="item-label">
-                {{org.login}}
-              </div>
-              <button class="item-value">
-                <i>keyboard_arrow_right</i>
-              </button>
+        <div class="list item-delimiter" v-for="org in orgs">
+          <q-collapsible icon="explore" :label="org.login">
+            <div>
+              <ul>
+                <li>Hej</li>
+                <li>på</li>
+                <li>dig</li>
+                <li>din</li>
+                <li>galning</li>
+              </ul>
             </div>
-          </div>
+          </q-collapsible>
         </div>
       </div>
 

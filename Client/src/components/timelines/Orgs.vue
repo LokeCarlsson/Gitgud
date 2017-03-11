@@ -1,5 +1,6 @@
 <template>
   <div id='orgs'>
+        <button @click="addNewEvent()">hej</button>
     <div v-show="this.authenticated" class="timeline">
       <div class="timeline-label">
         <h4 class="bg-white text-italic">
@@ -7,7 +8,7 @@
         </h4>
       </div>
 
-        <div class="timelineEvents" v-for="event in github">
+        <div class="timelineEvents" v-if="github" v-for="event in github">
           <div class="timeline-item">
             <div class="timeline-badge">
               <img :src="event.actor.avatar_url">
@@ -33,9 +34,10 @@
             </div>
           </div>
         </div>
-
       </div>
-
+      <div v-else>
+        <spinner color="#2196F3" name="dots" class="spinner"></spinner>
+      </div>
     </div>
 
   </div>
@@ -51,13 +53,26 @@
       }
     },
     mounted () {
-      // this.axios.get('https://api.github.com/users/' + localStorage.getItem('username') + '/events')
       this.axios.get('https://api.github.com/orgs/wp15/events')
         .then((payload) => {
-          // console.log(payload)
           this.github = payload.data
         })
+    },
+    methods: {
+      addNewEvent () {
+        this.axios.get('https://api.github.com/users/' + store.getters.username + '/events')
+          .then((payload) => {
+            this.github.unshift(payload.data[Math.floor((Math.random() * payload.data.length))])
+          })
+      }
     }
   }
 
 </script>
+<style>
+  .spinner {
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+  }
+</style>
