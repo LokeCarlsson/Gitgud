@@ -8,19 +8,11 @@ export default new Vuex.Store({
   state: {
     token: null,
     username: '',
-    avatarUrl: '',
-    bio: '',
-    displayName: '',
-    profileUrl: '',
     authenticated: false
   },
   getters: {
     token: state => state.token,
     username: state => state.username,
-    avatarUrl: state => state.avatarUrl,
-    bio: state => state.bio,
-    displayName: state => state.displayName,
-    profileUrl: state => state.profileUrl,
     authenticated: state => state.authenticated
   },
   mutations: {
@@ -41,18 +33,6 @@ export default new Vuex.Store({
     removeToken (state) {
       state.token = null
       localStorage.removeItem('token')
-    },
-    setUserInfo (state, userInfo) {
-      state.avatarUrl = userInfo.avatarUrl
-      state.bio = 'userInfo.bio'
-      state.displayName = userInfo.displayName
-      state.profileUrl = userInfo.profileUrl
-    },
-    removeUserInfo (state) {
-      state.avatarUrl = ''
-      state.bio = ''
-      state.displayName = ''
-      state.profileUrl = ''
     }
   },
   actions: {
@@ -63,12 +43,6 @@ export default new Vuex.Store({
     logout ({ commit }) {
       commit('removeUsername')
       commit('removeToken')
-    },
-    setUserInfo ({ commit }, payload) {
-      commit('setUserInfo', payload)
-    },
-    removeUserInfo ({ commit }) {
-      commit('removeUserInfo')
     }
   },
   plugins: [
