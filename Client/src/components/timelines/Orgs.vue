@@ -1,6 +1,5 @@
 <template>
   <div id='orgs'>
-        <button @click="addNewEvent()">hej</button>
     <div v-show="this.authenticated" class="timeline">
       <div class="timeline-label">
         <h4 class="bg-white text-italic">
@@ -57,13 +56,26 @@
         .then((payload) => {
           this.github = payload.data
         })
+      this.$options.sockets.githubEvent = (data) => {
+        this.addNewEvent(data)
+      }
     },
     methods: {
-      addNewEvent () {
-        this.axios.get('https://api.github.com/users/' + store.getters.username + '/events')
-          .then((payload) => {
-            this.github.unshift(payload.data[Math.floor((Math.random() * payload.data.length))])
-          })
+      addNewEvent (data) {
+        const newObj = {
+          actor: {
+            login: data.sender.login,
+            avatar_url: data.sender.avatar_url
+          },
+          created_at: data.commits[0].timestamp,
+          repo: {
+            name: data.repository.name
+          },
+          payload: {
+            commits: data.commits
+          }
+        }
+        this.github.unshift(newObj)
       }
     }
   }

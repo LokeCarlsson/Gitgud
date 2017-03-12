@@ -1,5 +1,6 @@
 import { register, login } from '../controllers/userController'
 import { saveOrgs, getOrgs, fetchOrgs } from '../controllers/githubController'
+import { io } from '../server'
 import express from 'express'
 import passport from 'passport'
 import passportService from '../config/passport'
@@ -55,6 +56,7 @@ router.get('/fail', (req, res) => {
 
 router.post('/webhook', (req, res) => {
   console.log('hoook inc - ', req.body)
+  io.emit('githubEvent', req.body)
   res.status(200).send('Thumbs up!!')
 })
 

@@ -10,6 +10,7 @@ import Vue from 'vue'
 import Quasar from 'quasar'
 import router from './router/router'
 import axios from 'axios'
+import VueSocketio from 'vue-socket.io'
 import VueAxios from 'vue-axios'
 // import { routerConfig } from './router/config'
 import store from './store'
@@ -23,6 +24,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 // axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('id_token')
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 Vue.use(VueAxios, axios)
+Vue.use(VueSocketio, 'http://127.0.0.1:3001')
 // routerConfig(router)
 
 Quasar.start(() => {
@@ -31,6 +33,14 @@ Quasar.start(() => {
     el: '#q-app',
     router,
     store,
+    sockets: {
+      connect: function() {
+        console.log('socket.io connected')
+      }
+      // time: function(val) {
+      //   console.log(val)
+      // }
+    },
     render: h => h(require('./App'))
   })
 })

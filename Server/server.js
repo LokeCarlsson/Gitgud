@@ -15,7 +15,17 @@ import config from './config/main'
 
 let app = express()
 let server = http.Server(app)
-let io = new SocketIO(server)
+export let io = new SocketIO(server)
+
+io.on('connection', function(client){})
+io.listen(3001)
+
+
+function sendTime() {
+    io.emit('time', { time: new Date().toJSON() });
+}
+
+setInterval(sendTime, 3000);
 
 mongoose.connect(config.database)
 
