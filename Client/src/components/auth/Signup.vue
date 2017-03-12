@@ -18,7 +18,6 @@
 </template>
 
 <script>
-  import todoItem from './Comp.vue'
   export default {
     data () {
       return {
@@ -29,9 +28,6 @@
           'Mow the lawn'
         ]
       }
-    },
-    components: {
-      todoItem
     },
     methods: {
       addNewTodo: function () {
