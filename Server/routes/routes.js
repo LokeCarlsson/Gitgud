@@ -55,7 +55,7 @@ router.get('/fail', (req, res) => {
 })
 
 router.post('/webhook', (req, res) => {
-  console.log('hoook inc - ', req.body)
+  console.log('hoook inc - ', req.headers)
   io.emit('githubEvent', req.body)
   res.status(200).send('Thumbs up!!')
 })

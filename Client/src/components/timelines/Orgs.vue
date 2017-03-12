@@ -18,7 +18,7 @@
           </div>
 
           <div class="timeline-date text-italic">
-            <div>{{ event.created_at }}</div>
+            <div>{{ new Date().toISOString().slice(0, 10) }}</div>
           </div>
 
           <div class="card">
@@ -57,6 +57,7 @@
           this.github = payload.data
         })
       this.$options.sockets.githubEvent = (data) => {
+        console.log(data)
         this.addNewEvent(data)
       }
     },
@@ -67,7 +68,7 @@
             login: data.sender.login,
             avatar_url: data.sender.avatar_url
           },
-          created_at: data.commits[0].timestamp,
+          created_at: new Date().toISOString().slice(0, 10),
           repo: {
             name: data.repository.name
           },
