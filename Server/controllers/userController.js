@@ -28,8 +28,6 @@ export const register = (req, res, next) => {
   const bio = req.user._json.bio
   const githubToken = req.user.token
 
-  console.log('min token: ', req.user.token)
-
   const userScheme = setUserInfo(req.user)
 
   Github.findOne({

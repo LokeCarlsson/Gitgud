@@ -42,12 +42,16 @@
         </div>
       </div>
       <spinner v-else color="#2196F3" name="dots" class="spinner"></spinner>
-    {{ this.orgs }}
+      <button class="full-width primary" @click="sendToDB()">Save</button>
+
+      <!--<br>-->
+      <!--{{ this.orgs }}-->
     </div>
 </template>
 
 <script>
   import auth from '../auth/index.js'
+  import { Toast, Dialog } from 'quasar'
   export default {
     data () {
       return {
@@ -70,6 +74,29 @@
         this.axios.get('/orgs', { headers: auth.getAuthHeader() })
         .then((payload) => {
           this.orgs = []
+          if (payload.data.length <= 0) {
+            this.loadFromGithub()
+          }
+          payload.data.forEach((element) => {
+            this.orgs.push({
+              name: element.name,
+              commits: element.commits,
+              pushes: element.pushes,
+              releases: element.releases
+            })
+          }, this)
+        })
+      },
+      loadFromGithub () {
+        this.axios.get('/orgs/github', { headers: auth.getAuthHeader() })
+        .then((payload) => {
+          this.orgs = []
+          if (payload.data.length <= 0) {
+            Dialog.create({
+              title: 'Oops',
+              message: 'Did you forget to grant access to your organizations or maybe you are not admin of any organizations?'
+            })
+          }
           payload.data.forEach((element) => {
             this.orgs.push({
               name: element.login,
@@ -81,9 +108,25 @@
         })
       },
       sendToDB () {
-        console.log('hej')
+        this.axios.post('/orgs', {
+          data: this.orgs
+        }, { headers: auth.getAuthHeader() })
+        .then((payload) => {
+          Toast.create.positive('Settings saved!')
+        })
+        .catch(() => {
+          Toast.create.negative('Something went wrong!')
+        })
       }
     }
+    // watch: {
+    //   orgs: {
+    //     handler: function(newValue) {
+    //       this.save = true
+    //     },
+    //     deep: true
+    //   }
+    // }
   }
 </script>
 

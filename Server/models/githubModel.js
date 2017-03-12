@@ -23,6 +23,9 @@ const githubSchema = new Schema({
   },
   githubToken: {
     type: String
+  },
+  organizations: {
+    type: Array
   }
 },
 {

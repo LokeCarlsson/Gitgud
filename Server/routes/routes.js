@@ -1,5 +1,5 @@
 import { register, login } from '../controllers/userController'
-import { save, getOrgs } from '../controllers/githubController'
+import { saveOrgs, getOrgs, fetchOrgs } from '../controllers/githubController'
 import express from 'express'
 import passport from 'passport'
 import passportService from '../config/passport'
@@ -37,8 +37,16 @@ router.get('/account', requireAuth, (req, res) => {
 
 router.get('/orgs', requireAuth, (req, res) => {
   getOrgs(req, res)
+})
+
+router.get('/orgs/github', requireAuth, (req, res) => {
+  fetchOrgs(req, res)
     .then(data => res.status(200).json(data))
     .catch(error => res.status(400).json(error))
+})
+
+router.post('/orgs', requireAuth, (req, res) => {
+  saveOrgs(req, res)
 })
 
 router.get('/fail', (req, res) => {

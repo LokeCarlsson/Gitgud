@@ -89,6 +89,7 @@
 <script>
   import store from '../../store'
   import auth from '../auth'
+  import { Toast } from 'quasar'
   export default {
     data () {
       return {
@@ -124,6 +125,7 @@
         this.displayName = ''
         this.avatarUrl = ''
         this.bio = ''
+        Toast.create('You have been signed out!')
       }
     }
   }

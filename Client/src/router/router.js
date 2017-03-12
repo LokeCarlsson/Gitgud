@@ -12,7 +12,6 @@ import Orgs from '../components/timelines/Orgs.vue'
 import Start from '../components/info/Start.vue'
 import Account from '../components/info/Account.vue'
 import Settings from '../components/info/Settings.vue'
-import Signup from '../components/auth/Signup.vue'
 import Login from '../components/auth/Login.vue'
 
 Vue.use(VueRouter)
@@ -59,12 +58,6 @@ export default new VueRouter({
           component: Login,
           name: 'Login',
           description: 'Login'
-        },
-        {
-          path: '/signup',
-          component: Signup,
-          name: 'Signup',
-          description: 'Signup'
         }
       ]
     },
