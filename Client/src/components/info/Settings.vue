@@ -4,16 +4,14 @@
         <div class="card-title">
           Organizations
         </div>
-        <div class="list item-delimiter"
-          v-for="(org, index) in orgs"
-          v-bind:key="org.id"
-          v-bind:title="org">
-          <q-collapsible icon="explore" :label="org.login">
-              <div class="list">
-                hej
-                <label class="item">
+        <div class="list item-delimiter">
+          <q-collapsible  icon="explore" v-for="(org, index) in orgs" :label="org.name">
+            <div class="list">
+              <label class="item">
                 <div class="item-primary">
-                  <q-checkbox v-model="commits"></q-checkbox>
+                  <q-checkbox
+                  :id="org.name + 'commits'"
+                  v-model="org.commits"></q-checkbox>
                 </div>
                 <div class="item-content">
                   Commits
@@ -21,7 +19,9 @@
               </label>
               <label class="item">
                 <div class="item-primary">
-                  <q-checkbox v-model="pushes"></q-checkbox>
+                  <q-checkbox
+                  :id="org.name + 'pushes'"
+                  v-model="org.pushes"></q-checkbox>
                 </div>
                 <div class="item-content">
                   Pushes
@@ -29,7 +29,9 @@
               </label>
               <label class="item">
                 <div class="item-primary">
-                  <q-checkbox v-model="releases"></q-checkbox>
+                  <q-checkbox
+                  :id="org.name + 'releases'"
+                  v-model="org.releases"></q-checkbox>
                 </div>
                 <div class="item-content">
                   Releases
@@ -39,12 +41,9 @@
           </q-collapsible>
         </div>
       </div>
-      <div v-else>
-        <spinner color="#2196F3" name="dots" class="spinner"></spinner>
-      </div>
+      <spinner v-else color="#2196F3" name="dots" class="spinner"></spinner>
+    {{ this.orgs }}
     </div>
-
-  </div>
 </template>
 
 <script>
@@ -53,12 +52,7 @@
     data () {
       return {
         userInfo: '',
-        orgs: '',
-        repos: '',
-        commits: false,
-        pushes: false,
-        releases: false,
-        value: ''
+        orgs: ''
       }
     },
     mounted () {
@@ -75,20 +69,19 @@
       getOrgs () {
         this.axios.get('/orgs', { headers: auth.getAuthHeader() })
         .then((payload) => {
-          this.orgs = payload.data
+          this.orgs = []
+          payload.data.forEach((element) => {
+            this.orgs.push({
+              name: element.login,
+              commits: false,
+              pushes: false,
+              releases: false
+            })
+          }, this)
         })
       },
-      getRepos (url) {
-        this.axios.get(url, { headers: auth.getAuthHeader() })
-        .then((payload) => {
-          this.repos = payload.data
-        })
-      }
-    },
-    computed: {
-      commits () {
-        console.log(this.org.id)
-        console.log(this.commits)
+      sendToDB () {
+        console.log('hej')
       }
     }
   }
