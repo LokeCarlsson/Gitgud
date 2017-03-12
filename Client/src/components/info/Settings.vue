@@ -6,15 +6,14 @@
         </div>
         <div class="list item-delimiter"
           v-for="(org, index) in orgs"
-          v-bind:org="org"
-          v-bind:index="index"
-          v-bind:key="org.id">
+          v-bind:key="org.id"
+          v-bind:title="org">
           <q-collapsible icon="explore" :label="org.login">
               <div class="list">
                 hej
                 <label class="item">
                 <div class="item-primary">
-                  <q-checkbox v-model="org.id"></q-checkbox>
+                  <q-checkbox v-model="commits"></q-checkbox>
                 </div>
                 <div class="item-content">
                   Commits
@@ -22,7 +21,7 @@
               </label>
               <label class="item">
                 <div class="item-primary">
-                  <q-checkbox v-model="org.id"></q-checkbox>
+                  <q-checkbox v-model="pushes"></q-checkbox>
                 </div>
                 <div class="item-content">
                   Pushes
@@ -30,7 +29,7 @@
               </label>
               <label class="item">
                 <div class="item-primary">
-                  <q-checkbox v-model="org.id"></q-checkbox>
+                  <q-checkbox v-model="releases"></q-checkbox>
                 </div>
                 <div class="item-content">
                   Releases
@@ -58,7 +57,8 @@
         repos: '',
         commits: false,
         pushes: false,
-        releases: false
+        releases: false,
+        value: ''
       }
     },
     mounted () {
@@ -83,6 +83,12 @@
         .then((payload) => {
           this.repos = payload.data
         })
+      }
+    },
+    computed: {
+      commits () {
+        console.log(this.org.id)
+        console.log(this.commits)
       }
     }
   }

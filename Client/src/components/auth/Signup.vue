@@ -3,7 +3,8 @@
     <input
       v-model="newTodoText"
       v-on:keyup.enter="addNewTodo"
-      placeholder="Add a todo">
+      placeholder="Add a todo"
+    >
     <ul>
       <li
         is="todo-item"
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+  import todoItem from './Comp.vue'
   export default {
     data () {
       return {
@@ -28,21 +30,13 @@
         ]
       }
     },
+    components: {
+      todoItem
+    },
     methods: {
-      addNewTodo () {
+      addNewTodo: function () {
         this.todos.push(this.newTodoText)
         this.newTodoText = ''
-      }
-    },
-    components: {
-      'todo-item': {
-        props: ['title'],
-        template: `
-          <li>
-            {{ title }}
-            <button v-on:click="$emit('remove')">X</button>
-          </li>
-        `
       }
     }
   }
