@@ -16,7 +16,9 @@ const setUserInfo = (request) => {
     username: request.username,
     profileUrl: request.profileUrl,
     avatarUrl: request._json.avatar_url,
-    bio: request._json.bio
+    bio: request._json.bio,
+    githubToken: request._json.githubToken,
+    email: request._json.email
   }
 }
 
@@ -26,6 +28,7 @@ export const register = (req, res, next) => {
   const profileUrl = req.user.profileUrl
   const avatarUrl = req.user._json.avatar_url
   const bio = req.user._json.bio
+  const email = req.user._json.email
   const githubToken = req.user.token
 
   const userScheme = setUserInfo(req.user)
@@ -48,7 +51,8 @@ export const register = (req, res, next) => {
       profileUrl: profileUrl,
       avatarUrl: avatarUrl,
       bio: bio,
-      githubToken: githubToken
+      githubToken: githubToken,
+      email: email
     })
 
     githubUser.save((err, user) => {

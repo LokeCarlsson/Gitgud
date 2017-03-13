@@ -1,6 +1,7 @@
 import { register, login } from '../controllers/userController'
 import { saveOrgs, getOrgs, fetchOrgs } from '../controllers/githubController'
 import { io } from '../server'
+import { sendEmail, filterEvent } from '../controllers/eventController'
 import express from 'express'
 import passport from 'passport'
 import passportService from '../config/passport'
@@ -15,6 +16,11 @@ router.get('/login', requireLogin, login)
 
 router.get('/auth/github', requireLogin, (req, res) => {
   res.status(200).send("Should not display this!!")
+})
+
+router.get('/email', (req, res) => {
+  sendEmail()
+  res.status(200).send('Email sent')
 })
 
 router.get('/auth/user', (req, res) => {
@@ -55,7 +61,8 @@ router.get('/fail', (req, res) => {
 })
 
 router.post('/webhook', (req, res) => {
-  console.log('hoook inc - ', req.headers)
+  // console.log('hoook inc - ', req.headers)
+  filterEvent(req)
   io.emit('githubEvent', req.body)
   res.status(200).send('Thumbs up!!')
 })

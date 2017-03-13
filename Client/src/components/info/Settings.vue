@@ -10,11 +10,11 @@
               <label class="item">
                 <div class="item-primary">
                   <q-checkbox
-                  :id="org.name + 'commits'"
-                  v-model="org.commits"></q-checkbox>
+                  :id="org.name + 'issues'"
+                  v-model="org.issues"></q-checkbox>
                 </div>
                 <div class="item-content">
-                  Commits
+                  Issues
                 </div>
               </label>
               <label class="item">
@@ -80,7 +80,7 @@
           payload.data.forEach((element) => {
             this.orgs.push({
               name: element.name,
-              commits: element.commits,
+              issues: element.issues,
               pushes: element.pushes,
               releases: element.releases
             })
@@ -100,7 +100,7 @@
           payload.data.forEach((element) => {
             this.orgs.push({
               name: element.login,
-              commits: false,
+              issues: false,
               pushes: false,
               releases: false
             })

@@ -24,6 +24,9 @@ const githubSchema = new Schema({
   githubToken: {
     type: String
   },
+  email: {
+    type: String
+  },
   organizations: {
     type: Array
   }
