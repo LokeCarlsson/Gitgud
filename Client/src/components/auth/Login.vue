@@ -7,7 +7,7 @@
         <p :key="error"> {{ error }}</p>
       </div>
       <button class="btn btn-primary">
-        <a href="http://127.0.0.1:3000/login">Login with Github</a>
+        <a href="http://gitgud.lokecarlsson.se:3000/login">Login with Github</a>
       </button>
     </div>
   </div>

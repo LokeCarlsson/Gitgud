@@ -19,12 +19,12 @@ import store from './store'
 Vue.use(Quasar)
 
 // Axios setup
-axios.defaults.baseURL = 'http://127.0.0.1:3000'
+axios.defaults.baseURL = 'http://gitgud.nu:3000'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 // axios.defaults.headers.common['Authorization'] = 'JWT ' + localStorage.getItem('id_token')
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 Vue.use(VueAxios, axios)
-Vue.use(VueSocketio, 'http://127.0.0.1:3001')
+Vue.use(VueSocketio, 'http://gitgud.nu:3001')
 // routerConfig(router)
 
 Quasar.start(() => {
