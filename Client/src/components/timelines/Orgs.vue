@@ -1,11 +1,5 @@
 <template>
   <div id='orgs'>
-     <!--<q-tabs :refs="$refs">
-      <q-tab v-for="org in orgs" :name="org.name" @click="renderOrg(org.name)" icon="message">
-        {{ org.name }}
-      </q-tab>
-    </q-tabs>-->
-
     <button v-for="org in orgs" class="primary orgButton" @click="renderOrg(org.name)">
       {{ org.name }}
     </button>

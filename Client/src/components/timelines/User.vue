@@ -1,6 +1,6 @@
 <template>
   <div id='user'>
-    <div v-show="this.authenticated" class="timeline">
+    <div v-if="github.length > 0" v-show="this.authenticated" class="timeline">
       <div class="timeline-label">
         <h4 class="bg-white text-italic">
           Today
