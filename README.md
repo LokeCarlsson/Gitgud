@@ -2,7 +2,7 @@
 
 ### Live: [Gitgud](http://gitgud.nu)
 
-![logo](http://i.imgur.com/w0lLtFK.jpg)
+Steaming hot java(script)
 
 ```
          {
