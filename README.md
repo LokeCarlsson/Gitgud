@@ -2,7 +2,7 @@
 
 ### Live: [Gitgud](http://gitgud.nu)
 
-!(http://i.imgur.com/w0lLtFK.jpg)
+![logo](http://i.imgur.com/w0lLtFK.jpg)
 
 ```
          {
