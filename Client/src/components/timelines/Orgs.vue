@@ -42,6 +42,7 @@
 <script>
   import store from '../../store'
   import auth from '../auth'
+  import { Dialog } from 'quasar'
   export default {
     data () {
       return {
@@ -89,6 +90,26 @@
               issues: element.issues,
               pushes: element.pushes,
               releases: element.releases
+            })
+          }, this)
+        })
+      },
+      loadFromGithub () {
+        this.axios.get('/orgs/github', { headers: auth.getAuthHeader() })
+        .then((payload) => {
+          this.orgs = []
+          if (payload.data.length <= 0) {
+            Dialog.create({
+              title: 'Oops',
+              message: 'Did you forget to grant access to your organizations or maybe you are not admin of any organizations?'
+            })
+          }
+          payload.data.forEach((element) => {
+            this.orgs.push({
+              name: element.login,
+              issues: false,
+              pushes: false,
+              releases: false
             })
           }, this)
         })

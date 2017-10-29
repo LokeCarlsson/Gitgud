@@ -58,9 +58,9 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
 })
 
 const githubOptions = {
-  clientID: "3f3301eacaac9f40bb7f",
-  clientSecret: "448476d278392ab649d1e2d57807d878b3b7320a",
-  callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+  clientID: "f4543dfd8d8586e150a6",
+  clientSecret: "c8b264e4d274288c2b368905b00afe7b2c375cea",
+  callbackURL: "https://gitgud.lokecarlsson.se:3000/auth/github/callback"
 }
 
 const githubLogin = new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
